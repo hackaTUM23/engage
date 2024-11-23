@@ -14,7 +14,7 @@ struct ComposedChatView : View {
     
     var body: some View {
         VStack {
-            ChatActivitySummaryView(activity: activity, user: user)
+            ChatActivitySummaryView(activity: activity, user: user).padding()
             CustomChatView(messages: messages)
         }
     }

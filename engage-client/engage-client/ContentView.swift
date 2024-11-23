@@ -6,43 +6,41 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ContentView: View {
     @State private var showAcceptEventModal = false
+    @State var activity: Activity = MockActivities.activities[0]
+    @StateObject var appState = AppState()
 
     var body: some View {
-        TabView {
-            ActivityOverview()
-                .tabItem {
-                    Label("Home", systemImage: "house")
+        Group {
+            if(appState.hasNextActivity) {
+                ComposedChatView()
+                    .padding()
+                    .tabItem {
+                        Label("Next Activity", systemImage: "bubble.left.and.text.bubble.right")
+                    }
+            } else {
+                ActivityOverview()
+                    .tabItem {
+                        Label("Home", systemImage: "house")
                 }
-            ComposedChatView(activity: MockActivities.activities[0], user: MockUsers.users[0], messages: mockMessages) // todo: replace with ChatView
-                .padding()
-                .tabItem {
-                    Label("Next Activity", systemImage: "bubble.left.and.text.bubble.right")
-                }
-        }
+            }
+  
+        }.environmentObject(appState)
         .padding()
         .onAppear {
             NotificationCenter.default.addObserver(forName: NSNotification.Name("ShowAcceptEventModal"), object: nil, queue: .main) { _ in
+                // TODO fetch best activity
                 self.showAcceptEventModal = true
             }
         }
         .sheet(isPresented: $showAcceptEventModal) {
-            AcceptEventModalView()
+            AcceptEventModalView(activity: activity)
         }
     }
 }
-
-struct AcceptEventModalView: View {
-    var body: some View {
-        Text("meeting invitation!")
-            .font(.title)
-            .padding()
-    }
-}
-
-
 
 #Preview {
     ContentView()

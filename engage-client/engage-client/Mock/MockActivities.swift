@@ -11,15 +11,15 @@ import CoreLocation
 struct MockActivities {
     static let activities: [Activity] = [
         Activity(
-            uuid: 1,
+            id: 1,
             activityDesc: "Go to the movies",
             time: Date(),
             locationDesc: "Downtown Cinema",
-            locationLatLong: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
+            locationLatLong: CLLocationCoordinate2D(latitude: 48.137154, longitude: 11.576124),
             registeredPeopleCount: 5
         ),
         Activity(
-            uuid: 2,
+            id: 2,
             activityDesc: "Hiking",
             time: Date(),
             locationDesc: "Mountain Trail",
@@ -27,7 +27,7 @@ struct MockActivities {
             registeredPeopleCount: 8
         ),
         Activity(
-            uuid: 3,
+            id: 3,
             activityDesc: "Dinner at a restaurant",
             time: Date(),
             locationDesc: "Italian Bistro",
@@ -35,7 +35,7 @@ struct MockActivities {
             registeredPeopleCount: 4
         ),
         Activity(
-            uuid: 4,
+            id: 4,
             activityDesc: "Board game night",
             time: Date(),
             locationDesc: "Friend's House",

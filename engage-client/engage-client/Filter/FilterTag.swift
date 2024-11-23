@@ -12,7 +12,7 @@ struct FilterTag: View {
     
     var body: some View {
         Label(filterData.title, systemImage: filterData.icon ?? "questionmark.circle")
-            .font(.callout)
+            .font(.custom("Nunito-Regular", size: 18))
             .frame(alignment: .center)
             .padding(5)
             .foregroundColor(.white)
