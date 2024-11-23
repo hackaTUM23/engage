@@ -13,8 +13,8 @@ struct ActivityOverview: View {
     var body: some View {
         VStack {
             Group {
-                Text("Activity Overview")
-                    .font(.largeTitle)
+                Text("Hi \(user.prename)!")
+                    .font(.custom("Nunito-Bold", size: 32))
                 Text(welcomeText)
                     .font(.subheadline).padding()
                 PreferenceSelectionView(filterModel: .init())

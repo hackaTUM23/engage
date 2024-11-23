@@ -15,7 +15,7 @@ struct AcceptEventModalView: View {
     
     var body: some View {
         VStack {
-            Text("Get going!").font(.title).padding()
+            Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
             Image("spriessen")
                 .resizable()
                 .frame(width: 100, height: 100)

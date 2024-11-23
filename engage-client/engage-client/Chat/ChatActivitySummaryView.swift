@@ -16,7 +16,8 @@ struct ChatActivitySummaryView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Text(activity.activityDesc)
-                        .font(.headline)
+                        .font(.custom("Nunito-Regular", size: 20))
+                        
                     Spacer()
                     Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
                 }
@@ -25,24 +26,24 @@ struct ChatActivitySummaryView: View {
                     VStack {
                         Image(systemName: "person.circle").frame(width: 60, height: 60)
                         Text("Hosted by ")
-                            .font(.caption2)
+                            .font(.custom("Nunito-Regular", size: 14))
                         Text("\(user.prename) \(user.surname)")
                     }.frame(minWidth: 140)
                     VStack(alignment: .leading) {
                         HStack {
                             Image(systemName: "clock").frame(width: 40)
                             Text(" \(activity.time.formatted(.dateTime.hour().minute()))")
-                                .font(.subheadline)
+                                .font(.custom("Nunito-Regular", size: 14))
                         }
                         HStack {
                             Image(systemName: "calendar").frame(width: 40)
                             Text(" \(activity.time.formatted(.dateTime.year().month().day()))")
-                                .font(.subheadline)
+                                .font(.custom("Nunito-Regular", size: 14))
                         }
                         HStack {
                             Image(systemName: "person.3.fill").frame(width: 40)
                             Text(" \(activity.registeredPeopleCount) friends")
-                                .font(.subheadline)
+                                .font(.custom("Nunito-Regular", size: 14))
                         }
                     }
                 }

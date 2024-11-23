@@ -14,6 +14,7 @@ struct engage_clientApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.font, Font.custom("Nunito-Regular", size: 14))
         }
     }
 }
