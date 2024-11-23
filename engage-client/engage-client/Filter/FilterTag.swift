@@ -18,7 +18,7 @@ struct FilterTag: View {
             .foregroundColor(.white)
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(filterData.isSelected ? .accentColor : Color.black.opacity(0.6))
+                    .foregroundColor(filterData.isSelected ? .accentColor : Color.black.opacity(0.3))
             )
             .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .leading)))
     }

@@ -17,7 +17,7 @@ struct PreferenceSelectionView: View {
                 .onTapGesture {
                     filterModel.toggleFilter(at: index)
                 }
-                .padding(.vertical, 4)
+                .padding(4)
         }
         Spacer()
     }
