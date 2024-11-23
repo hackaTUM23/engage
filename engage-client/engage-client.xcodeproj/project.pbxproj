@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5638EC182CF2226600781852 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 5638EC172CF2226600781852 /* WrappingHStack */; };
+		D712A88C2CF22C7B0074A0A5 /* ExyteChat in Frameworks */ = {isa = PBXBuildFile; productRef = D712A88B2CF22C7B0074A0A5 /* ExyteChat */; };
+		D7DE25D52CF2169900B6EE23 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = D7DE25D42CF2169900B6EE23 /* MessageKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -15,7 +17,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5638EBF92CF2120B00781852 /* engage-client */ = {
+		D712A8A32CF232180074A0A5 /* engage-client */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "engage-client";
 			sourceTree = "<group>";
@@ -28,6 +30,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5638EC182CF2226600781852 /* WrappingHStack in Frameworks */,
+				D712A88C2CF22C7B0074A0A5 /* ExyteChat in Frameworks */,
+				D7DE25D52CF2169900B6EE23 /* MessageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,7 +41,7 @@
 		5638EBEE2CF2120B00781852 = {
 			isa = PBXGroup;
 			children = (
-				5638EBF92CF2120B00781852 /* engage-client */,
+				D712A8A32CF232180074A0A5 /* engage-client */,
 				5638EBF82CF2120B00781852 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,11 +70,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5638EBF92CF2120B00781852 /* engage-client */,
+				D712A8A32CF232180074A0A5 /* engage-client */,
 			);
 			name = "engage-client";
 			packageProductDependencies = (
 				5638EC172CF2226600781852 /* WrappingHStack */,
+				D7DE25D42CF2169900B6EE23 /* MessageKit */,
+				D712A88B2CF22C7B0074A0A5 /* ExyteChat */,
 			);
 			productName = "engage-client";
 			productReference = 5638EBF72CF2120B00781852 /* engage-client.app */;
@@ -102,6 +108,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5638EC162CF2226600781852 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				D7DE25D32CF2169900B6EE23 /* XCRemoteSwiftPackageReference "MessageKit" */,
+				D712A88A2CF22C7B0074A0A5 /* XCRemoteSwiftPackageReference "Chat" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5638EBF82CF2120B00781852 /* Products */;
@@ -341,6 +349,22 @@
 				minimumVersion = 2.2.11;
 			};
 		};
+		D712A88A2CF22C7B0074A0A5 /* XCRemoteSwiftPackageReference "Chat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/Chat";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.8;
+			};
+		};
+		D7DE25D32CF2169900B6EE23 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -348,6 +372,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5638EC162CF2226600781852 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
+		};
+		D712A88B2CF22C7B0074A0A5 /* ExyteChat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D712A88A2CF22C7B0074A0A5 /* XCRemoteSwiftPackageReference "Chat" */;
+			productName = ExyteChat;
+		};
+		D7DE25D42CF2169900B6EE23 /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7DE25D32CF2169900B6EE23 /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
