@@ -14,12 +14,12 @@ struct ContentView: View {
         TabView {
             ActivityOverview()
                 .tabItem {
-                    Label("Activities", systemImage: "list.dash")
+                    Label("Home", systemImage: "house")
                 }
             ComposedChatView(activity: MockActivities.activities[0], user: MockUsers.users[0], messages: mockMessages) // todo: replace with ChatView
                 .padding()
                 .tabItem {
-                    Label("Order", systemImage: "square.and.pencil")
+                    Label("Next Activity", systemImage: "bubble.left.and.text.bubble.right")
                 }
         }
         .padding()

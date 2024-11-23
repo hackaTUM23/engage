@@ -11,7 +11,7 @@ import CoreLocation
 struct MockActivities {
     static let activities: [Activity] = [
         Activity(
-            id: 1,
+            uuid: 1,
             activityDesc: "Go to the movies",
             time: Date(),
             locationDesc: "Downtown Cinema",
@@ -19,7 +19,7 @@ struct MockActivities {
             registeredPeopleCount: 5
         ),
         Activity(
-            id: 2,
+            uuid: 2,
             activityDesc: "Hiking",
             time: Date(),
             locationDesc: "Mountain Trail",
@@ -27,7 +27,7 @@ struct MockActivities {
             registeredPeopleCount: 8
         ),
         Activity(
-            id: 3,
+            uuid: 3,
             activityDesc: "Dinner at a restaurant",
             time: Date(),
             locationDesc: "Italian Bistro",
@@ -35,7 +35,7 @@ struct MockActivities {
             registeredPeopleCount: 4
         ),
         Activity(
-            id: 4,
+            uuid: 4,
             activityDesc: "Board game night",
             time: Date(),
             locationDesc: "Friend's House",

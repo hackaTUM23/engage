@@ -9,15 +9,15 @@ import Foundation
 import CoreLocation
 
 class Activity: Codable {
-    var id: Int
+    var uuid: Int
     var activityDesc: String
     var time: Date
     var locationDesc: String
     var locationLatLong: CLLocationCoordinate2D
     var registeredPeopleCount: Int
     
-    init(id: Int, activityDesc: String, time: Date, locationDesc: String, locationLatLong: CLLocationCoordinate2D, registeredPeopleCount: Int) {
-        self.id = id
+    init(uuid: Int, activityDesc: String, time: Date, locationDesc: String, locationLatLong: CLLocationCoordinate2D, registeredPeopleCount: Int) {
+        self.uuid = uuid
         self.activityDesc = activityDesc
         self.time = time
         self.locationDesc = locationDesc
@@ -41,7 +41,7 @@ class Activity: Codable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
+        uuid = try container.decode(Int.self, forKey: .id)
         activityDesc = try container.decode(String.self, forKey: .activityDesc)
         time = try container.decode(Date.self, forKey: .time)
         locationDesc = try container.decode(String.self, forKey: .locationDesc)
@@ -56,7 +56,7 @@ class Activity: Codable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
+        try container.encode(uuid, forKey: .id)
         try container.encode(activityDesc, forKey: .activityDesc)
         try container.encode(time, forKey: .time)
         try container.encode(locationDesc, forKey: .locationDesc)
@@ -66,5 +66,11 @@ class Activity: Codable {
         try locationContainer.encode(locationLatLong.longitude, forKey: .longitude)
         
         try container.encode(registeredPeopleCount, forKey: .registeredPeopleCount)
+    }
+}
+
+extension Activity : Identifiable {
+    public var id: String {
+        String(self.uuid)
     }
 }
