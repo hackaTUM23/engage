@@ -14,4 +14,11 @@ class AppState : ObservableObject {
     var hasNextActivity: Bool {
         nextActivity != nil
     }
+    
+    init(activities: [Activity], user: AppUser, nextActivity: Activity? = nil, chatContext: ChatContext? = nil) {
+        self.activities = activities
+        self.user = user
+        self.nextActivity = nextActivity
+        self.chatContext = chatContext
+    }
 }

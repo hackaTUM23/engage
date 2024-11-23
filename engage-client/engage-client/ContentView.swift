@@ -11,7 +11,9 @@ import CoreLocation
 struct ContentView: View {
     @State private var showAcceptEventModal = false
     @State var activity: Activity = MockActivities.activities[0]
-    @StateObject var appState = AppState()
+    @StateObject var appState = AppState(
+        activities: [], user: MockUsers.users[0]
+    )
 
     var body: some View {
         Group {

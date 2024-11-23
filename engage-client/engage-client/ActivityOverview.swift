@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct ActivityOverview: View {
+    @EnvironmentObject var appState: AppState
+    
     let welcomeText = "Welcome back! Here are some activities we recommend for you."
-    let user = MockUsers.users.first!
+    
+    
     var body: some View {
         VStack {
             Group {
-                Text("Hi \(user.prename)!")
+                Text("Hi \(appState.user.prename)!")
                     .font(.custom("Nunito-Bold", size: 32))
                 Text(welcomeText)
                     .font(.subheadline).padding()
                 PreferenceSelectionView(filterModel: .init())
             }
             List {
-                ForEach(MockActivities.activities) { activity in
-                    ChatActivitySummaryView(activity: activity, user: user)
+                ForEach(appState.activities) { activity in
+                    ChatActivitySummaryView(activity: activity, user: appState.user)
                 }
             }
             Spacer()
@@ -31,5 +34,5 @@ struct ActivityOverview: View {
 }
 
 #Preview {
-    ActivityOverview()
+    ActivityOverview().environmentObject(mockStateNoNextActivity)
 }
