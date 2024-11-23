@@ -1,5 +1,5 @@
 {
-  "originHash" : "c2c24a6af73443be54eac9d9f67b20510d7a79c89d4a1d90a7820199369656a9",
+  "originHash" : "1469f9d9cc897c7c7d320e3e09abbc30e13d6b84343acb8152be1f92447ea5cc",
   "pins" : [
     {
       "identity" : "activityindicatorview",
@@ -29,30 +29,12 @@
       }
     },
     {
-      "identity" : "inputbaraccessoryview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/nathantannar4/InputBarAccessoryView",
-      "state" : {
-        "revision" : "c7acd5fa32e54cd7a44ad7eb9a7730da35b54c95",
-        "version" : "6.5.1"
-      }
-    },
-    {
       "identity" : "mediapicker",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/exyte/MediaPicker.git",
       "state" : {
         "revision" : "88769b1b69c2b5e5fa5b65522c08bc7b667a6cb8",
         "version" : "2.2.3"
-      }
-    },
-    {
-      "identity" : "messagekit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/MessageKit/MessageKit",
-      "state" : {
-        "revision" : "b024c1287ac30fb6ea2ee07169e6193efc11d972",
-        "version" : "4.3.0"
       }
     },
     {
