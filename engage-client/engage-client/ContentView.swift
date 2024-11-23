@@ -10,7 +10,7 @@ import CoreLocation
 
 struct ContentView: View {
     @State private var showAcceptEventModal = false
-    @State var activity: Activity = Activity(id: 1, activityDesc: "Go for a walk", time: Date(), locationDesc: "test location desc", locationLatLong: CLLocationCoordinate2D(), registeredPeopleCount: 1)
+    @State var activity: Activity = MockActivities.activities[0]
 
     var body: some View {
         TabView {
@@ -18,7 +18,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Activities", systemImage: "list.dash")
                 }
-            VStack{} // todo: replace with ChatView
+            ComposedChatView(activity: MockActivities.activities[0], user: MockUsers.users[0], messages: mockMessages)
                 .padding()
                 .tabItem {
                     Label("Order", systemImage: "square.and.pencil")

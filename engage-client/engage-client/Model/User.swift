@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import ExyteChat
 
 class AppUser: Codable {
     var id: Int
@@ -11,7 +12,10 @@ class AppUser: Codable {
     var experiences: [String]
     var previousActivities: [String]
     
-    init(id: Int, prename: String, surname: String, homeLocationLatLong: CLLocationCoordinate2D, age: Int, interests: [String], experiences: [String], previousActivities: [String]) {
+    var chatUser: User?
+    
+    
+    init(id: Int, prename: String, surname: String, homeLocationLatLong: CLLocationCoordinate2D, age: Int, interests: [String], experiences: [String], previousActivities: [String], avatarURL: URL?) {
         self.id = id
         self.prename = prename
         self.surname = surname
@@ -20,6 +24,7 @@ class AppUser: Codable {
         self.interests = interests
         self.experiences = experiences
         self.previousActivities = previousActivities
+        self.chatUser = User(id: String(id), name: "\(prename) \(surname)", avatarURL: avatarURL, isCurrentUser: false)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -68,10 +73,13 @@ class AppUser: Codable {
         try locationContainer.encode(homeLocationLatLong.latitude, forKey: .latitude)
         try locationContainer.encode(homeLocationLatLong.longitude, forKey: .longitude)
     }
-}//
+}
+
+//
 //  User.swift
 //  engage-client
 //
 //  Created by Sandesh Sharma on 23.11.24.
 //
+
 

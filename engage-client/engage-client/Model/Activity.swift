@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class Activity: Codable {
+class Activity: Codable, Identifiable {
     var id: Int
     var activityDesc: String
     var time: Date

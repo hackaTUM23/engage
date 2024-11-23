@@ -21,10 +21,9 @@ struct AcceptEventModalView: View {
                 .frame(width: 100, height: 100)
                 .foregroundColor(.white)
                 .clipShape(Circle())
-            Text("Tom wants you to join him to \(activity.activityDesc).").font(.callout)
                 .padding()
+            ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0])
             Spacer()
-            // todo: Sanshas component
             HStack {
                 Button("Decline", role: .cancel) {
                     dismiss()
@@ -48,7 +47,5 @@ struct AcceptEventModalView: View {
 }
 
 #Preview {
-    let activity = Activity(id: 1, activityDesc: "go for a walk", time: Date(), locationDesc: "test location desc", locationLatLong: CLLocationCoordinate2D(), registeredPeopleCount: 1)
-                            
-    AcceptEventModalView(activity: activity)
+    AcceptEventModalView(activity: MockActivities.activities[0])
 }

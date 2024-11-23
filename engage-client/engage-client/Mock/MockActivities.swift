@@ -15,7 +15,7 @@ struct MockActivities {
             activityDesc: "Go to the movies",
             time: Date(),
             locationDesc: "Downtown Cinema",
-            locationLatLong: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
+            locationLatLong: CLLocationCoordinate2D(latitude: 48.137154, longitude: 11.576124),
             registeredPeopleCount: 5
         ),
         Activity(
