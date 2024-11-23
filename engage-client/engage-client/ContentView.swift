@@ -34,16 +34,6 @@ struct ContentView: View {
     }
 }
 
-struct AcceptEventModalView: View {
-    var body: some View {
-        Text("meeting invitation!")
-            .font(.title)
-            .padding()
-    }
-}
-
-
-
 #Preview {
     ContentView()
 }
