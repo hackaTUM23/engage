@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 #from app.persistence.db import database
-from app.routes import activity_routes, chat_routes, user_routes, matchmaker_routes
+from routes import activity_routes, chat_routes, user_routes, matchmaker_routes
 from fastapi.concurrency import asynccontextmanager
 
 app = FastAPI()

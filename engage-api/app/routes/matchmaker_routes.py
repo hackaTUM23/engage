@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from app.models.matchmaker import Matchmaker
-from app.persistence.mock_db import matchmaker_data
+from models.matchmaker import Matchmaker
+from persistence.mock_db import matchmaker_data
 from typing import List
 
 router = APIRouter()
