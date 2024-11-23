@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ContentView: View {
     @State private var showAcceptEventModal = false
+    @State var activity: Activity = Activity(id: 1, activityDesc: "Go for a walk", time: Date(), locationDesc: "test location desc", locationLatLong: CLLocationCoordinate2D(), registeredPeopleCount: 1)
 
     var body: some View {
         TabView {
@@ -29,7 +31,7 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showAcceptEventModal) {
-            AcceptEventModalView()
+            AcceptEventModalView(activity: activity)
         }
     }
 }
