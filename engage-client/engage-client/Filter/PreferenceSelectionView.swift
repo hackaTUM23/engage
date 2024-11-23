@@ -19,7 +19,6 @@ struct PreferenceSelectionView: View {
                 }
                 .padding(4)
         }
-        Spacer()
     }
 }
 
