@@ -8,21 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showAcceptEventModal = false
+
     var body: some View {
         TabView {
             ActivityOverview()
                 .tabItem {
                     Label("Activities", systemImage: "list.dash")
                 }
-            VStack{} // todo: replace with ChatView
+            ComposedChatView(activity: MockActivities.activities[0], user: MockUsers.users[0], messages: mockMessages) // todo: replace with ChatView
                 .padding()
                 .tabItem {
                     Label("Order", systemImage: "square.and.pencil")
                 }
         }
-        
+        .padding()
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: NSNotification.Name("ShowAcceptEventModal"), object: nil, queue: .main) { _ in
+                self.showAcceptEventModal = true
+            }
+        }
+        .sheet(isPresented: $showAcceptEventModal) {
+            AcceptEventModalView()
+        }
     }
 }
+
+struct AcceptEventModalView: View {
+    var body: some View {
+        Text("meeting invitation!")
+            .font(.title)
+            .padding()
+    }
+}
+
+
 
 #Preview {
     ContentView()

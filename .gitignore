@@ -1,3 +1,21 @@
+# OS X temporary files
+.DS_Store
+.Trashes
+
+# Xcode User settings
+xcuserdata/
+
+# Swift Package Manager
+Packages/
+Package.resolved
+.swiftpm
+
+# Pods
+Pods/
+
+# vscode
 .venv
 .vscode
+
+# python
 __pycache__
