@@ -14,6 +14,9 @@ class AppUser: Codable {
     
     var chatUser: User?
     
+    var image_str: String {
+        self.id == 1 ? "niko" :  "vincent"
+    }
     
     init(id: Int, prename: String, surname: String, homeLocationLatLong: CLLocationCoordinate2D, age: Int, interests: [String], experiences: [String], previousActivities: [String], avatarURL: URL?, isCurrentUser: Bool = false) {
         self.id = id
@@ -74,12 +77,3 @@ class AppUser: Codable {
         try locationContainer.encode(homeLocationLatLong.longitude, forKey: .longitude)
     }
 }
-
-//
-//  User.swift
-//  engage-client
-//
-//  Created by Sandesh Sharma on 23.11.24.
-//
-
-
