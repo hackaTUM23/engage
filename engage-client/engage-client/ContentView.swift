@@ -9,13 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            ActivityOverview()
+                .tabItem {
+                    Label("Activities", systemImage: "list.dash")
+                }
+            VStack{} // todo: replace with ChatView
+                .padding()
+                .tabItem {
+                    Label("Order", systemImage: "square.and.pencil")
+                }
         }
-        .padding()
+        
     }
 }
 
