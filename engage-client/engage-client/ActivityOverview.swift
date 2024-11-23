@@ -12,11 +12,13 @@ struct ActivityOverview: View {
     let user = MockUsers.users.first!
     var body: some View {
         VStack {
-            Text("Activity Overview")
-                .font(.largeTitle)
-            Text(welcomeText)
-                .font(.subheadline).padding()
-            PreferenceSelectionView(filterModel: .init())
+            Group {
+                Text("Activity Overview")
+                    .font(.largeTitle)
+                Text(welcomeText)
+                    .font(.subheadline).padding()
+                PreferenceSelectionView(filterModel: .init())
+            }
             List {
                 ForEach(MockActivities.activities) { activity in
                     ChatActivitySummaryView(activity: activity, user: user)
