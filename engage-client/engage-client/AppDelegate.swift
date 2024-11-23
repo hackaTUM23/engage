@@ -102,7 +102,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         } else {
             print("Notification \(response.actionIdentifier) received with missing userInfo")
         }
-
+        
+        NotificationCenter.default.post(name: NSNotification.Name("ShowAcceptEventModal"), object: nil)
+        
         if response.actionIdentifier == "ACCEPT_ACTION" {
             print("Accept action triggered")
         } else if response.actionIdentifier == "DECLINE_ACTION" {
