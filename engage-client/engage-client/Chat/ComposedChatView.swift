@@ -8,25 +8,22 @@ import SwiftUI
 import ExyteChat
 
 struct ComposedChatView : View {
-    @State var activity: Activity
-    @State var user: AppUser
-    @State var messages: [Message]
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
-        VStack {
-            ChatActivitySummaryView(activity: activity, user: user).padding()
-            CustomChatView(messages: messages)
+        if let activity = appState.nextActivity {
+            VStack {
+                ChatActivitySummaryView(activity: activity, user: appState.user).padding()
+                CustomChatView()
+            }
         }
+        
     }
 }
 
 
 struct ComposedChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ComposedChatView(
-            activity: MockActivities.activities[0],
-            user: MockUsers.users[0],
-            messages: mockMessages
-        )
+        ComposedChatView().environmentObject(mockStateNextActivity)
     }
 }

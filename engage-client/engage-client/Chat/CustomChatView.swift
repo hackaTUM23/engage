@@ -12,42 +12,56 @@ import UIKit
 
 
 struct CustomChatView: View {
-
-
-    @State var messages: [Message] = []
-    static var num_msgs: Int = 0
+    @EnvironmentObject var appState: AppState
     
-    func onAppear() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            print("adding message")
-            messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: bot, text: "Hello, I'm a bot. How can I help you today?"))
-            CustomChatView.num_msgs += 1
-        }
-    }
+   // @Binding var messages: [Message]
+    static var num_msgs: Int = 0
     
     func handleTextInput(draft: DraftMessage) {
         print(draft.text)
-        messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: MockUsers.users[1].chatUser!, text: draft.text))
-        CustomChatView.num_msgs += 1
+        if var messages = appState.chatContext?.messages {
+            messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: MockUsers.users[1].chatUser!, text: draft.text))
+            CustomChatView.num_msgs += 1
+        } else {
+            print("messages is nil, cannot add message")
+        }
+        
     }
     
     var body: some View {
-        ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
-                HStack {
-                    TextField("Type message", text: textBinding)
-                        .padding(7)
-                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                    Button() { inputViewActionClosure(.send) } label: {
-                        Image(systemName: "paperplane.fill")
-                            .imageScale(.large)
-                            .foregroundStyle(.tint)
+        if let messages = appState.chatContext?.messages {
+            ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
+                    HStack {
+                        TextField("Type message", text: textBinding)
+                            .padding(7)
+                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                        Button() { inputViewActionClosure(.send) } label: {
+                            Image(systemName: "paperplane.fill")
+                                .imageScale(.large)
+                                .foregroundStyle(.tint)
+                        }
                     }
-                }
-                .padding()
+                    .padding()
+            }
+        } else {
+            Text("TODO: add spinner loading chat messages")
         }
+        
     }
 }
 
-#Preview {
-    CustomChatView(messages: mockMessages)
+
+
+struct CustomChatView_Previews: PreviewProvider {
+    static let myEnvObject = AppState(
+        activities: [], user: MockUsers.users.first!,
+        nextActivity: MockActivities.activities.first!,
+        chatContext: MockChatContext.mock()
+    )
+    
+    static var previews: some View {
+        CustomChatView()
+                .environmentObject(myEnvObject)
+        }
+    
 }

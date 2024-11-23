@@ -13,7 +13,7 @@ struct AcceptEventModalView: View {
     
     @State var activity: Activity
     @State private var loading = true
- 
+    
     var body: some View {
         VStack {
             if !loading {
