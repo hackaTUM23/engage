@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var showAcceptEventModal = false
     @State var activity: Activity = MockActivities.activities[0]
     @StateObject var appState = AppState(
-        activities: [], user: MockUsers.users[0]
+        activities: [], user: MockUsers.users[0], preferences: []
     )
 
     var body: some View {

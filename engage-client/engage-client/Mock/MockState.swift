@@ -9,12 +9,14 @@ let mockStateNextActivity: AppState = .init(
     activities: [],
     user: MockUsers.users.first!,
     nextActivity: MockActivities.activities.first!,
-    chatContext: MockChatContext.mock()
+    chatContext: MockChatContext.mock(),
+    preferences: []
     )
 
 let mockStateNoNextActivity: AppState = .init(
     activities: MockActivities.activities,
     user: MockUsers.users.first!,
     nextActivity: nil,
-    chatContext: nil
+    chatContext: nil,
+    preferences: []
 )

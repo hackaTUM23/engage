@@ -54,9 +54,11 @@ struct CustomChatView: View {
 
 struct CustomChatView_Previews: PreviewProvider {
     static let myEnvObject = AppState(
-        activities: [], user: MockUsers.users.first!,
+        activities: [],
+        user: MockUsers.users.first!,
         nextActivity: MockActivities.activities.first!,
-        chatContext: MockChatContext.mock()
+        chatContext: MockChatContext.mock(),
+        preferences: []
     )
     
     static var previews: some View {

@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import CoreLocation
 
 struct AcceptEventModalView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var appState: AppState
     
-    @State var activity: Activity
+    @State var activity: Activity?
     @State private var loading = true
     
     var body: some View {
@@ -39,6 +39,7 @@ struct AcceptEventModalView: View {
                     .buttonStyle(.borderedProminent)
                     .padding()
                     .frame(maxWidth: .infinity)
+                    .disabled((activity == nil))
                 }
             } else {
                 ProgressView()
@@ -50,21 +51,20 @@ struct AcceptEventModalView: View {
     }
     
     func accept() {
-        // todo - update appState accordingly
+        appState.nextActivity = activity
         dismiss()
     }
     
     func fetchActivity() async { // todo - pass uid and filters
         do {
-            try await Task.sleep(for: .seconds(10))
             let url = URL(string: "https://34.141.34.184:8080/subscriptions/find_matching_subscription")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             let requestBody: [String: Any] = [
-                "user_id": 1, // todo actual uid
-                "preferences": ["football", "basketball"] // todo actual filters
+                "user_id": appState.user.id,
+                "preferences": appState.preferences
             ]
             request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
             
