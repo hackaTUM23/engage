@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showAcceptEventModal = false
+
     var body: some View {
         TabView {
             ActivityOverview()
@@ -20,9 +22,27 @@ struct ContentView: View {
                     Label("Order", systemImage: "square.and.pencil")
                 }
         }
-        
+        .padding()
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: NSNotification.Name("ShowAcceptEventModal"), object: nil, queue: .main) { _ in
+                self.showAcceptEventModal = true
+            }
+        }
+        .sheet(isPresented: $showAcceptEventModal) {
+            AcceptEventModalView()
+        }
     }
 }
+
+struct AcceptEventModalView: View {
+    var body: some View {
+        Text("meeting invitation!")
+            .font(.title)
+            .padding()
+    }
+}
+
+
 
 #Preview {
     ContentView()

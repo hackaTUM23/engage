@@ -12,3 +12,10 @@ Package.resolved
 
 # Pods
 Pods/
+
+# vscode
+.venv
+.vscode
+
+# python
+__pycache__
