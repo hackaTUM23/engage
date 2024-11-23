@@ -8,15 +8,59 @@
 
 /* Begin PBXBuildFile section */
 		5638EC182CF2226600781852 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 5638EC172CF2226600781852 /* WrappingHStack */; };
+		A9190D762CF23CB000EA473D /* screen-time.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = A9190D6A2CF23CB000EA473D /* screen-time.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D712A88C2CF22C7B0074A0A5 /* ExyteChat in Frameworks */ = {isa = PBXBuildFile; productRef = D712A88B2CF22C7B0074A0A5 /* ExyteChat */; };
 		D7DE25D52CF2169900B6EE23 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = D7DE25D42CF2169900B6EE23 /* MessageKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A9190D742CF23CB000EA473D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5638EBEF2CF2120B00781852 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9190D692CF23CB000EA473D;
+			remoteInfo = "screen-time";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A9190D7B2CF23CB000EA473D /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				A9190D762CF23CB000EA473D /* screen-time.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5638EBF72CF2120B00781852 /* engage-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "engage-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9190D6A2CF23CB000EA473D /* screen-time.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = "screen-time.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A9190D772CF23CB000EA473D /* Exceptions for "screen-time" folder in "screen-time" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A9190D692CF23CB000EA473D /* screen-time */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A9190D6B2CF23CB000EA473D /* screen-time */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A9190D772CF23CB000EA473D /* Exceptions for "screen-time" folder in "screen-time" target */,
+			);
+			path = "screen-time";
+			sourceTree = "<group>";
+		};
 		D712A8A32CF232180074A0A5 /* engage-client */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "engage-client";
@@ -35,6 +79,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A9190D672CF23CB000EA473D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -42,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				D712A8A32CF232180074A0A5 /* engage-client */,
+				A9190D6B2CF23CB000EA473D /* screen-time */,
 				5638EBF82CF2120B00781852 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				5638EBF72CF2120B00781852 /* engage-client.app */,
+				A9190D6A2CF23CB000EA473D /* screen-time.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,10 +117,12 @@
 				5638EBF32CF2120B00781852 /* Sources */,
 				5638EBF42CF2120B00781852 /* Frameworks */,
 				5638EBF52CF2120B00781852 /* Resources */,
+				A9190D7B2CF23CB000EA473D /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A9190D752CF23CB000EA473D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D712A8A32CF232180074A0A5 /* engage-client */,
@@ -82,6 +137,28 @@
 			productReference = 5638EBF72CF2120B00781852 /* engage-client.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A9190D692CF23CB000EA473D /* screen-time */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9190D782CF23CB000EA473D /* Build configuration list for PBXNativeTarget "screen-time" */;
+			buildPhases = (
+				A9190D662CF23CB000EA473D /* Sources */,
+				A9190D672CF23CB000EA473D /* Frameworks */,
+				A9190D682CF23CB000EA473D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A9190D6B2CF23CB000EA473D /* screen-time */,
+			);
+			name = "screen-time";
+			packageProductDependencies = (
+			);
+			productName = "screen-time";
+			productReference = A9190D6A2CF23CB000EA473D /* screen-time.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -93,6 +170,9 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					5638EBF62CF2120B00781852 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					A9190D692CF23CB000EA473D = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
@@ -117,12 +197,20 @@
 			projectRoot = "";
 			targets = (
 				5638EBF62CF2120B00781852 /* engage-client */,
+				A9190D692CF23CB000EA473D /* screen-time */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5638EBF52CF2120B00781852 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9190D682CF23CB000EA473D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -139,7 +227,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A9190D662CF23CB000EA473D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A9190D752CF23CB000EA473D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A9190D692CF23CB000EA473D /* screen-time */;
+			targetProxy = A9190D742CF23CB000EA473D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5638EC032CF2120D00781852 /* Debug */ = {
@@ -266,9 +369,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "engage-client/engage-client.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"engage-client/Preview Content\"";
+				DEVELOPMENT_TEAM = G8M7S3U667;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -294,9 +399,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "engage-client/engage-client.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"engage-client/Preview Content\"";
+				DEVELOPMENT_TEAM = G8M7S3U667;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -311,6 +418,56 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.hackaTUM23.engage-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A9190D792CF23CB000EA473D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "screen-time/screen_time.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "screen-time/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "screen-time";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hackaTUM23.engage-client.screen-time";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A9190D7A2CF23CB000EA473D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "screen-time/screen_time.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "screen-time/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "screen-time";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hackaTUM23.engage-client.screen-time";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -334,6 +491,15 @@
 			buildConfigurations = (
 				5638EC062CF2120D00781852 /* Debug */,
 				5638EC072CF2120D00781852 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9190D782CF23CB000EA473D /* Build configuration list for PBXNativeTarget "screen-time" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9190D792CF23CB000EA473D /* Debug */,
+				A9190D7A2CF23CB000EA473D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
