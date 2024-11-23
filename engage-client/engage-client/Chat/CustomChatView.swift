@@ -9,48 +9,47 @@ import SwiftUI
 
 import UIKit
 
-let user = User(id: "test id", name: "Homie 1", avatarURL: nil, isCurrentUser: true)
-let otheruser = User(id: "test id 2", name: "Homie 2", avatarURL: AssetExtractor.createLocalUrl(forImageNamed: "spriessen"), isCurrentUser: false)
-let bot = User(id: "test id 3", name: "Bot", avatarURL: nil, isCurrentUser: false)
+
 
 struct CustomChatView: View {
 
-    @State var messages: [Message] = [
-        Message(id: "test id0", user: user, text: "Hello, world!"),
-        Message(id: "test id1", user: otheruser, text: "Hello, other!"),
-        Message(id: "test id2", user: bot, text: "Hello, bot!"),
-    ]
+
+    @State var messages: [Message] = []
     static var num_msgs: Int = 0
     
     var body: some View {
-            ChatView(messages: messages) { draft in
-                if (draft.text == "")
-                    { return }
-                print(draft.text)
-                messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: user, text: draft.text))
-                CustomChatView.num_msgs += 1
-            } inputViewBuilder: { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
-                Group {
-                        VStack {
-                            HStack {
-                                TextField("Write your message", text: textBinding)
-                                Button() { inputViewActionClosure(.send) } label: {
-                                    Image(systemName: "paperplane.fill")
-                                        .imageScale(.large)
-                                        .foregroundStyle(.tint)
-                                }
-                                
-                                    
-                            }
-                        }
-
+        ChatView(messages: messages) { draft in
+            print(draft.text)
+            messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: bot, text: draft.text))
+            CustomChatView.num_msgs += 1
+        }
+//        messageBuilder: { message, positionInUserGroup, positionInCommentsGroup, showContextMenuClosure, messageActionClosure, showAttachmentClosure in
+//            VStack {
+//                Text(message.text)
+////                if !message.attachments.isEmpty {
+////                    ForEach(message.attachments, id: \.id) { at in
+////                        AsyncImage(url: at.thumbnail)
+////                    }
+////                }
+//            }
+//        }
+        inputViewBuilder: { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
+            Group {
+                HStack {
+                    TextField("Start a conversation", text: textBinding)
+                        .padding(7)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                    Button() { inputViewActionClosure(.send) } label: {
+                        Image(systemName: "paperplane.fill")
+                            .imageScale(.large)
+                            .foregroundStyle(.tint)
                     }
-                }
-            
-        .padding()
+                }.padding(.top)
+            }
+        }
     }
 }
 
 #Preview {
-    CustomChatView()
+    CustomChatView(messages: mockMessages)
 }

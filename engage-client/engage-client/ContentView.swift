@@ -16,7 +16,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Activities", systemImage: "list.dash")
                 }
-            VStack{} // todo: replace with ChatView
+            ComposedChatView(activity: MockActivities.activities[0], user: MockUsers.users[0], messages: mockMessages) // todo: replace with ChatView
                 .padding()
                 .tabItem {
                     Label("Order", systemImage: "square.and.pencil")

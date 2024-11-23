@@ -8,6 +8,8 @@
 import Foundation
 import CoreLocation
 
+
+
 struct MockUsers {
     static let users: [AppUser] = [
         AppUser(
@@ -18,7 +20,8 @@ struct MockUsers {
             age: 28,
             interests: ["Hiking", "Reading", "Cooking"],
             experiences: ["Software Engineer", "Project Manager"],
-            previousActivities: ["Hiking in Yosemite", "Cooking class"]
+            previousActivities: ["Hiking in Yosemite", "Cooking class"],
+            avatarURL: AssetExtractor.createLocalUrl(forImageNamed: "spriessen")
         ),
         AppUser(
             id: 2,
@@ -28,7 +31,8 @@ struct MockUsers {
             age: 32,
             interests: ["Movies", "Gaming", "Traveling"],
             experiences: ["Graphic Designer", "Freelancer"],
-            previousActivities: ["Movie marathon", "Trip to Japan"]
+            previousActivities: ["Movie marathon", "Trip to Japan"],
+            avatarURL: nil
         ),
         AppUser(
             id: 3,
@@ -38,7 +42,8 @@ struct MockUsers {
             age: 25,
             interests: ["Music", "Photography", "Cycling"],
             experiences: ["Musician", "Photographer"],
-            previousActivities: ["Concert tour", "Photo exhibition"]
+            previousActivities: ["Concert tour", "Photo exhibition"],
+            avatarURL: nil
         ),
         AppUser(
             id: 4,
@@ -48,7 +53,8 @@ struct MockUsers {
             age: 30,
             interests: ["Football", "Cooking", "Traveling"],
             experiences: ["Chef", "Travel Blogger"],
-            previousActivities: ["Football match", "Cooking competition"]
+            previousActivities: ["Football match", "Cooking competition"],
+            avatarURL: nil
         ),
         AppUser(
             id: 5,
@@ -58,7 +64,8 @@ struct MockUsers {
             age: 27,
             interests: ["Art", "Yoga", "Reading"],
             experiences: ["Artist", "Yoga Instructor"],
-            previousActivities: ["Art exhibition", "Yoga retreat"]
+            previousActivities: ["Art exhibition", "Yoga retreat"],
+            avatarURL: nil
         )
     ]
 }
