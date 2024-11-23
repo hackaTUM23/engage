@@ -11,9 +11,10 @@ struct FilterTag: View {
     var filterData: FilterData
     
     var body: some View {
-        Label(filterData.title, systemImage: "")
+        Label(filterData.title, systemImage: filterData.icon ?? "questionmark.circle")
             .font(.callout)
-            .padding(4)
+            .frame(alignment: .center)
+            .padding(5)
             .foregroundColor(.white)
             .background(
                 RoundedRectangle(cornerRadius: 8)
@@ -21,4 +22,10 @@ struct FilterTag: View {
             )
             .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .leading)))
     }
+}
+
+
+#Preview {
+    FilterTag(filterData: .init(title: "Group Sports", icon: "sportscourt"
+))
 }

@@ -11,4 +11,5 @@ struct FilterData: Identifiable {
     var id = UUID()
     var title: String
     var isSelected: Bool = false
+    var icon: String?
 }

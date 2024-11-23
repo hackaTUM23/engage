@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from app.models.activities import Activity
-from app.persistence.mock_db import activities_data
+from models.activities import Activity
+from persistence.mock_db import activities_data
 from typing import List
 
 router = APIRouter()

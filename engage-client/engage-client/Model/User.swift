@@ -15,7 +15,7 @@ class AppUser: Codable {
     var chatUser: User?
     
     
-    init(id: Int, prename: String, surname: String, homeLocationLatLong: CLLocationCoordinate2D, age: Int, interests: [String], experiences: [String], previousActivities: [String], avatarURL: URL?) {
+    init(id: Int, prename: String, surname: String, homeLocationLatLong: CLLocationCoordinate2D, age: Int, interests: [String], experiences: [String], previousActivities: [String], avatarURL: URL?, isCurrentUser: Bool = false) {
         self.id = id
         self.prename = prename
         self.surname = surname
@@ -24,7 +24,7 @@ class AppUser: Codable {
         self.interests = interests
         self.experiences = experiences
         self.previousActivities = previousActivities
-        self.chatUser = User(id: String(id), name: "\(prename) \(surname)", avatarURL: avatarURL, isCurrentUser: false)
+        self.chatUser = User(id: String(id), name: "\(prename) \(surname)", avatarURL: avatarURL, isCurrentUser: isCurrentUser)
     }
     
     enum CodingKeys: String, CodingKey {

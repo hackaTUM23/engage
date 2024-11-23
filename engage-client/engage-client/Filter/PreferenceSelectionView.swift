@@ -19,20 +19,19 @@ struct PreferenceSelectionView: View {
                 }
                 .padding(.vertical, 4)
         }
-        .padding(.horizontal)
         Spacer()
     }
 }
 
 class FilterModel: NSObject, ObservableObject {
     var data = [
-        FilterData(title: "Group Sports"),
-        FilterData(title: "Concerts"),
-        FilterData(title: "Movies"),
-        FilterData(title: "Books"),
-        FilterData(title: "Art"),
-        FilterData(title: "Board Games"),
-        FilterData(title: "Other")
+        FilterData(title: "Group Sports", icon: "sportscourt"),
+        FilterData(title: "Concerts", icon: "music.note"),
+        FilterData(title: "Movies", icon: "film"),
+        FilterData(title: "Books", icon: "book"),
+        FilterData(title: "Art", icon: "paintbrush"),
+        FilterData(title: "Board Games", icon: "gamecontroller"),
+        FilterData(title: "Other", icon: "questionmark.circle")
     ]
     
     @Published var selection = [FilterData]()

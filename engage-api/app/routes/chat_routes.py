@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from app.models.chat import Chat
-from app.persistence.mock_db import chat_data
+from models.chat import Chat
+from persistence.mock_db import chat_data
 from typing import List
 
 router = APIRouter()
