@@ -43,12 +43,33 @@ struct ComposedChatView : View {
     func fetchChats() async {
         print("Fetching chats...")
         do {
+            guard let matchMakerId = appState.chatContext?.matchMakerId else {
+                return
+            }
+
             let url = URL(string: "https://34.141.34.184:8080/chats/\(appState.chatContext?.matchMakerId ?? 0)")!
             let (data, _) = try await URLSession.shared.data(from: url)
             //let fetchedMessages = try JSONDecoder().decode([Message].self, from: data)
             //DispatchQueue.main.async {
             //    appState.chatContext?.messages = fetchedMessages
             //}
+            // Convert the raw data to a string for debugging
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Received data as string: \(dataString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+            
+            // Custom date formatter for the "time" field (no timezone)
+            let customDateFormatter = DateFormatter()
+            customDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            customDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(customDateFormatter) // Use the custom date formatter
+
+            // TODO: Parse the fetched messages to Message objects
+
         } catch {
             print("Failed to fetch chats: \(error)")
         }

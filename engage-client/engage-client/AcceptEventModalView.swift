@@ -17,7 +17,11 @@ struct AcceptEventModalView: View {
     
     var body: some View {
         VStack {
-            if !loading {
+            if loading {
+                ProgressView("Loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else if let activity = activity {
                 Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
                 Image("spriessen")
                     .resizable()
@@ -25,7 +29,7 @@ struct AcceptEventModalView: View {
                     .foregroundColor(.white)
                     .clipShape(Circle())
                     .padding()
-                ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0])
+                ChatActivitySummaryView(activity: activity, user: appState.user)
                 Spacer()
                 HStack {
                     Button("Tomorrow, I promise", role: .cancel) {
@@ -52,9 +56,12 @@ struct AcceptEventModalView: View {
                     .disabled((activity == nil) || acceptLoading)
                 }
             } else {
-                ProgressView()
+                Text("No activity available")
+                    .font(.custom("Nunito-Bold", size: 24))
+                    .padding()
             }
-        }.task {
+        }
+        .task {
             await fetchActivity()
             loading = false
         }
@@ -69,6 +76,7 @@ struct AcceptEventModalView: View {
     }
     
     func fetchActivity() async { // todo - pass uid and filters
+        print("fetchActivity")
         do {
             let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription")!
             
@@ -91,8 +99,9 @@ struct AcceptEventModalView: View {
     }
     
     func matchmaking() async {
+        print("Matchmaking")
         do {
-            let url = URL(string: "https://34.141.34.184:8080/matchmaker/accept_match")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
