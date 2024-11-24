@@ -46,10 +46,16 @@ class Activity: Codable, Identifiable {
         time = try container.decode(Date.self, forKey: .time)
         locationDesc = try container.decode(String.self, forKey: .locationDesc)
         
-        let locationContainer = try container.nestedContainer(keyedBy: LocationLatLongCodingKeys.self, forKey: .locationLatLong)
-        let latitude = try locationContainer.decode(CLLocationDegrees.self, forKey: .latitude)
-        let longitude = try locationContainer.decode(CLLocationDegrees.self, forKey: .longitude)
-        locationLatLong = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        // Decode locationLatLong as an array of two doubles
+        let coordinates = try container.decode([Double].self, forKey: .locationLatLong)
+        guard coordinates.count == 2 else {
+            throw DecodingError.dataCorruptedError(
+                forKey: .locationLatLong,
+                in: container,
+                debugDescription: "locationLatLong array must contain exactly 2 elements"
+            )
+        }
+        locationLatLong = CLLocationCoordinate2D(latitude: coordinates[0], longitude: coordinates[1])
         
         registeredPeopleCount = try container.decode(Int.self, forKey: .registeredPeopleCount)
     }
