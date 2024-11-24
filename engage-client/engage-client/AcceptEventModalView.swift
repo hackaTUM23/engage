@@ -92,7 +92,7 @@ struct AcceptEventModalView: View {
     
     func matchmaking() async {
         do {
-            let url = URL(string: "https://34.141.34.184:8080/matchmaker/accept_match")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
