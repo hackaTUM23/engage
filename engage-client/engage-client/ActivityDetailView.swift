@@ -16,7 +16,7 @@ struct ActivityDetailView: View {
     var body: some View {
         VStack {
             SheetPill()
-            ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0])
+            ChatActivitySummaryView(activity: activity, user: appState.user)
                 .padding()
             Text("Sign up for this event and we will notify you as soon as someone else joins.").multilineTextAlignment(.center).padding(.horizontal)
             Text("You can then hold each other accountable to actually show up.").multilineTextAlignment(.center)
@@ -44,6 +44,7 @@ struct ActivityDetailView: View {
         print("dismissing")
         acceptLoading = true
         appState.nextActivity = mainMockActivity
+        appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[1].chatUser!, matchMakerId: 1)
         await matchmaking()
         acceptLoading = false
         dismiss()

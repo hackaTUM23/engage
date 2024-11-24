@@ -57,7 +57,7 @@ struct ComposedChatView : View {
                 print("Received data as string in fetchChats: \(dataString)")
                 if let chats = Chat.parseMessages(from: dataString) {
                     let messages: [Message] = chats.map { chat in
-                        Message(id: UUID().uuidString, user: MockUsers.users.filter { user in user.id == chat.userId }.first!.chatUser!, text: chat.message)
+                        Message(id: UUID().uuidString, user: MockUsers.users.filter { u in u.id == chat.userId }.first!.chatUser!, text: chat.message)
                     }
                     print("UPDATE APP STATE")
                     appState.messages = messages
