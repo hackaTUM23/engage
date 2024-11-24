@@ -42,18 +42,16 @@ struct ComposedChatView : View {
     }
     
     func fetchChats() async {
+        print("Fetching...")
         do {
             guard let matchMakerId = appState.chatContext?.matchMakerId else {
+                print("no matchmaker id when fetching chats")
                 return
             }
             
             let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/chats/\(matchMakerId)")!
             let (data, _) = try await URLSession.shared.data(from: url)
-            //let fetchedMessages = try JSONDecoder().decode([Message].self, from: data)
-            //DispatchQueue.main.async {
-            //    appState.chatContext?.messages = fetchedMessages
-            //}
-            // Convert the raw data to a string for debugging
+
             if let dataString = String(data: data, encoding: .utf8) {
                 print("Received data as string in fetchChats: \(dataString)")
                 if let chats = Chat.parseMessages(from: dataString) {
@@ -66,12 +64,6 @@ struct ComposedChatView : View {
             } else {
                 print("Failed to convert data to string")
             }
-            
-            // TODO: Parse the fetched messages to Message objects
-            //let messages = try decoder.decode([Message].self, from: data)
-            
-            //appState.chatContext?.messages = chats
-            
         } catch {
             print("Failed to fetch chats: \(error)")
         }
@@ -79,6 +71,7 @@ struct ComposedChatView : View {
 }
 
 struct ComposedChatView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ComposedChatView().environmentObject(mockStateNextActivity)
     }

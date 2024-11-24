@@ -11,8 +11,9 @@ class ChatContext {
     var otherUser: User?
     var matchMakerId: Int?
     
-    init(messages: [Message], otherUser: User? = nil) {
+    init(messages: [Message], otherUser: User? = nil, matchMakerId: Int? = 1) {
         self.messages = messages
         self.otherUser = otherUser
+        self.matchMakerId = matchMakerId
     }
 }
