@@ -142,7 +142,8 @@ struct AcceptEventModalView: View {
             
             
             let matchmakerId = try JSONDecoder().decode(Int.self, from: data)
-            appState.chatContext?.matchMakerId = matchmakerId
+            appState.chatContext = .init(messages: [])
+            appState.chatContext!.matchMakerId = matchmakerId
         } catch {
             print(error)
         }

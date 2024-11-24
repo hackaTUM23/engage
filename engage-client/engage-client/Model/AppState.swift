@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import ExyteChat
 
 class AppState : ObservableObject {
     @Published var activities: [Activity] = []
     @Published var user: AppUser = MockUsers.users.first!
     @Published var nextActivity: Activity?
     @Published var chatContext: ChatContext?
+    @Published var messages: [Message] = []
     @Published var preferences: [FilterData] = [
         FilterData(title: "Fitness", icon: "figure.run.treadmill"),
         FilterData(title: "Woman Only", icon: "figure.stand.dress"),
