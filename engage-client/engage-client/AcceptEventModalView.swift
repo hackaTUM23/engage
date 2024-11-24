@@ -12,6 +12,7 @@ struct AcceptEventModalView: View {
     @EnvironmentObject var appState: AppState
     
     @State var activity: Activity?
+    @State var otherUser: AppUser?
     @State private var loading = true
     @State private var acceptLoading = false
     
@@ -26,11 +27,15 @@ struct AcceptEventModalView: View {
                 Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
                 Image("vincent")
                     .resizable()
-                    .frame(width: 100, height: 100)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 180, height: 180)
                     .foregroundColor(.white)
                     .clipShape(Circle())
                     .padding()
-                ChatActivitySummaryView(activity: activity, user: appState.user)
+                Text("\(otherUser?.prename ?? "") \(otherUser?.surname ?? "Someone") invited you to join him!").font(.custom("Nunito-Regular", size: 18))
+                Text("\(otherUser?.age ?? 0) years old").font(.custom("Nunito-Regular", size: 14))
+                Text("Interested in \(otherUser?.interests.joined(separator: ", ") ?? "")").font(.custom("Nunito-Regular", size: 14))
+                ChatActivitySummaryView(activity: activity, user: appState.user).padding()
                 Spacer()
                 HStack {
                     Button("Tomorrow, I promise", role: .cancel) {
@@ -62,8 +67,10 @@ struct AcceptEventModalView: View {
                     .padding()
             }
         }
+        .background(Color(UIColor.systemGray6))
         .task {
             await fetchActivity()
+            await fetchUser()
             loading = false
         }
     }
@@ -89,6 +96,24 @@ struct AcceptEventModalView: View {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             activity = try decoder.decode(Activity.self, from: data)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func fetchUser() async {
+        do {
+            let userId = 1
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/users/\(userId)")!
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            otherUser = try decoder.decode(AppUser.self, from: data)
         } catch {
             print(error)
         }

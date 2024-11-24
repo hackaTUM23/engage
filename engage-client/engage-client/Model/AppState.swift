@@ -13,15 +13,6 @@ class AppState : ObservableObject {
     @Published var nextActivity: Activity?
     @Published var chatContext: ChatContext?
     @Published var preferences: [FilterData] = [
-        // todo - update with:
-        // Fitness
-        // Woman Only
-        // Health (yoga, chi gong, etc)
-        // Ratschen
-        // Dancing
-        // Ball Sports
-        // Fighting Sports
-        
         FilterData(title: "Fitness", icon: "figure.run.treadmill"),
         FilterData(title: "Woman Only", icon: "figure.stand.dress"),
         FilterData(title: "Health", icon: "figure.yoga"),
