@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from models.subscriptions import Subscription
 from models.activities import Activity
 from persistence.mock_db import subscription_data
@@ -21,11 +21,11 @@ def subscribe(subscription: Subscription):
     return subscription
 
 @router.get("/find_matching_subscription/", response_model=Subscription)
-def find_matching_subscription(user_id: int, preferences: List[str]):
+def find_matching_subscription(user_id: int = Query(None), preferences: List[str] = Query(None)):
     
     #TODO logic
 
-    match = [s for s in subscription_data if len(s.user_id)>0][0]
+    match = [s for s in subscription_data if s.user != None][0]
     return match
 
 @router.delete("/{subscription_id}")

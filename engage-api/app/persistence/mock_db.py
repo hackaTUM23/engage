@@ -28,7 +28,7 @@ activities_data = []
 idx = 1
 for act in opendata.fetch_sport_offers(limit=200):
     max = random.randint(2,14)
-    for i in get_weekday_dates(act.weekday, act.start_time, x_weeks=2):
+    for i in get_weekday_dates(act.weekday, act.start_time, x_weeks=1):
         activities_data.append(
             Activity(
                 id=idx,
@@ -45,7 +45,7 @@ activities_data.append(
     Activity(
         id=idx,
         activity_desc="Ratschbank",
-        time=datetime.now() + timedelta(days=2),
+        time=activities_data[-10].time,
         location_desc="Marienplatz",
         location_lat_long=(0.0,0.0),
         registered_people_count=0,
@@ -180,18 +180,18 @@ users_data = [
 ]
 
 # Generate a subscription
-subscription_data = Subscription(
+subscription_data = [Subscription(
     subscription_id=1,
     user=users_data[0],  # Anna Müller
     activity=activities_data[-1]
-)
+)]
 
 # Generate a matchmaker linking Anna Müller to a similar user
-matchmaker_data = Matchmaker(
+matchmaker_data = [Matchmaker(
     matchmaker_id=1,
     users=[1, 6],  # Anna Müller and Maximilian Huber
     activity_id=activities_data[-1].id
-)
+)]
 
 from datetime import datetime, timedelta
 

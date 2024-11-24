@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from models.matchmaker import Matchmaker
 from persistence.mock_db import matchmaker_data
 from typing import List
@@ -12,7 +12,7 @@ def get_matchmakers():
     return matchmaker_data
 
 @router.post("/accept_match")
-def accept_match(users: List[int], activity_id:int):
+def accept_match(users: List[int] = Query(...), activity_id:int = Query(...)):
     id = int(time.time())
     if any(m.matchmaker_id == id for m in matchmaker_data):
         raise HTTPException(status_code=400, detail="Matchmaker ID already exists")
