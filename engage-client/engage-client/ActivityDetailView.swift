@@ -43,9 +43,9 @@ struct ActivityDetailView: View {
     func accept() async {
         print("dismissing")
         acceptLoading = true
-        appState.nextActivity = mainMockActivity
-        await matchmaking()
-        appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[0].chatUser!, matchMakerId: 1)
+//        appState.nextActivity = mainMockActivity
+//        await matchmaking()
+        /*ppState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[0].chatUser!, matchMakerId: 1)*/
         acceptLoading = false
         dismiss()
 //        appState.nextActivity = mainMockActivity
