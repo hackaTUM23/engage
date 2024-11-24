@@ -24,7 +24,7 @@ struct AcceptEventModalView: View {
                     .padding()
             } else if let activity = activity {
                 Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
-                Image("spriessen")
+                Image("vincent")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .foregroundColor(.white)
