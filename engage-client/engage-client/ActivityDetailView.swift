@@ -15,7 +15,8 @@ struct ActivityDetailView: View {
     var body: some View {
         VStack {
             SheetPill()
-            ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0]).padding()
+            ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0])
+                .padding()
             Spacer()
             Button {
                 Task {
@@ -32,7 +33,7 @@ struct ActivityDetailView: View {
             .padding()
             .frame(maxWidth: .infinity)
             .disabled(acceptLoading)
-        }
+        }.background(Color(UIColor.systemGray6))
     }
     
     func accept() async {

@@ -30,7 +30,7 @@ struct ActivityListView: View {
                                 .font(.custom("Nunito-Regular", size: 20))
                             
                             Spacer()
-                            Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
+//                            Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
                         }
                         HStack {
                             Image(systemName: "clock").frame(width: 40)

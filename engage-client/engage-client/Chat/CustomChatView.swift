@@ -45,7 +45,7 @@ struct CustomChatView: View {
                 .padding()
             }
         } else {
-            Text("TODO: add spinner loading chat messages")
+            ProgressView()
         }
     }
 }
