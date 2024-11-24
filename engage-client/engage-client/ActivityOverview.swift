@@ -36,7 +36,7 @@ struct ActivityOverview: View {
                 } else {
                     List {
                         ForEach(appState.activities) { activity in
-                            ChatActivitySummaryView(activity: activity, user: appState.user)
+                            ActivityListView(activity: activity, user: appState.user)
                         }
                     }
                 }
