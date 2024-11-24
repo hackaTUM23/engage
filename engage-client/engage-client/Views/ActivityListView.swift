@@ -18,7 +18,7 @@ struct ActivityListView: View {
                 
                 //                Spacer().frame(height: 20)
                 HStack() {
-                    Image("marcel")
+                    Image(activity.activityDesc)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 100)
