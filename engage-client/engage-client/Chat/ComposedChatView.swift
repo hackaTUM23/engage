@@ -43,7 +43,7 @@ struct ComposedChatView : View {
     func fetchChats() async {
         print("Fetching chats...")
         do {
-            let url = URL(string: "https://34.141.34.184:8080/chats/\(appState.chatContext?.matchMakerId ?? "")")!
+            let url = URL(string: "https://34.141.34.184:8080/chats/\(appState.chatContext?.matchMakerId ?? 0)")!
             let (data, _) = try await URLSession.shared.data(from: url)
             //let fetchedMessages = try JSONDecoder().decode([Message].self, from: data)
             //DispatchQueue.main.async {
