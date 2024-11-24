@@ -17,11 +17,11 @@ class AppState : ObservableObject {
         FilterData(title: "Woman Only", icon: "figure.stand.dress"),
         FilterData(title: "Health", icon: "figure.yoga"),
         FilterData(title: "Conversations", icon: "quote.bubble"),
-        FilterData(title: "Dancing", icon: "figure.socialdance"),
-        FilterData(title: "Board Games", icon: "gamecontroller"),
-        FilterData(title: "Ball Sports", icon: "figure.volleyball"),
-        FilterData(title: "Fighting", icon: "figure.kickboxing"),
-        FilterData(title: "Other", icon: "questionmark.circle")
+//        FilterData(title: "Dancing", icon: "figure.socialdance"),
+//        FilterData(title: "Board Games", icon: "gamecontroller"),
+//        FilterData(title: "Ball Sports", icon: "figure.volleyball"),
+//        FilterData(title: "Fighting", icon: "figure.kickboxing"),
+//        FilterData(title: "Other", icon: "questionmark.circle")
     ]
     var hasNextActivity: Bool {
         nextActivity != nil
