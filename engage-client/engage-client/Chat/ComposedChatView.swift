@@ -41,23 +41,16 @@ struct ComposedChatView : View {
     }
 
     func fetchChats() async {
+        print("Fetching...")
         do {
             guard let matchMakerId = appState.chatContext?.matchMakerId else {
+                print("no matchmaker id when fetching chats")
                 return
             }
 
             let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/chats/\(matchMakerId)")!
             let (data, _) = try await URLSession.shared.data(from: url)
-            //let fetchedMessages = try JSONDecoder().decode([Message].self, from: data)
-            //DispatchQueue.main.async {
-            //    appState.chatContext?.messages = fetchedMessages
-            //}
-            // Convert the raw data to a string for debugging
-            if let dataString = String(data: data, encoding: .utf8) {
-                print("Received data as string: \(dataString)")
-            } else {
-                print("Failed to convert data to string")
-            }
+            print("fetch result : \(data)")
             
             // Custom date formatter for the "time" field (no timezone)
             let customDateFormatter = DateFormatter()
@@ -68,15 +61,28 @@ struct ComposedChatView : View {
             decoder.dateDecodingStrategy = .formatted(customDateFormatter) // Use the custom date formatter
 
             // TODO: Parse the fetched messages to Message objects
-            //let messages = try decoder.decode([Message].self, from: data)
-
+            let chats = try decoder.decode([Chat].self, from: data)
+            print("Received messages: \(chats)")
+            let messages: [Message] = chats.map { chat in
+                Message(id: String(chat.matchmaker_id), user: MockUsers.users[chat.user_id].chatUser!, createdAt: Date(), text: chat.message)
+            }
+            print("Received messages: \(messages)")
+            appState.chatContext?.messages = messages
         } catch {
             print("Failed to fetch chats: \(error)")
         }
     }
 }
 
+struct Chat : Codable {
+    let matchmaker_id: Int
+    let user_id: Int
+    let timestamp: String
+    let message: String
+}
+
 struct ComposedChatView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ComposedChatView().environmentObject(mockStateNextActivity)
     }
