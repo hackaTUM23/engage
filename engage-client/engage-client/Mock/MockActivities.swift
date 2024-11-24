@@ -15,7 +15,7 @@ struct MockActivities {
             activityDesc: "Volleyball",
             time: Date(),
             locationDesc: "Städt. Sporthalle an der Auenstraße",
-            locationLatLong: CLLocationCoordinate2D(latitude: 48.1244139, longitude: 4884711),
+            locationLatLong: CLLocationCoordinate2D(latitude: 48.1244139, longitude: 48.84711),
             registeredPeopleCount: 5
         ),
         Activity(
