@@ -57,7 +57,7 @@ struct AcceptEventModalView: View {
     
     func fetchActivity() async { // todo - pass uid and filters
         do {
-            let url = URL(string: "https://34.141.34.184:8080/subscriptions/find_matching_subscription")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -69,7 +69,9 @@ struct AcceptEventModalView: View {
             request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
             
             let (data, _) = try await URLSession.shared.data(for: request)
-            activity = try JSONDecoder().decode(Activity.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            activity = try decoder.decode(Activity.self, from: data)
         } catch {
             print(error)
         }
