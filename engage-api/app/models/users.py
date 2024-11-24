@@ -5,9 +5,10 @@ from typing import Tuple
 
 # User model
 class User(BaseModel):
-    id: int
+    user_id: Optional[int]
     prename: str
     surname: str
+    gender: str
     home_location_lat_long: Tuple[float, float]
     age: int
     interests: List[str]

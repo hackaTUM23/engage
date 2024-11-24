@@ -57,9 +57,7 @@ struct CustomChatView_Previews: PreviewProvider {
         activities: [],
         user: MockUsers.users.first!,
         nextActivity: MockActivities.activities.first!,
-        chatContext: MockChatContext.mock(),
-        preferences: []
-    )
+        chatContext: MockChatContext.mock()    )
     
     static var previews: some View {
         CustomChatView()

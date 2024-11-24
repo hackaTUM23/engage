@@ -28,7 +28,7 @@ struct ActivityOverview: View {
                 Group {
                     Text(welcomeText)
                         .font(.custom("Nunito-Regular", size: 14)).padding(.horizontal, 14).multilineTextAlignment(.center)
-                    PreferenceSelectionView(filterModel: .init())
+                    PreferenceSelectionView()
                 }.padding()
                 if !loading {
                     if appState.activities.isEmpty {
@@ -59,7 +59,7 @@ struct ActivityOverview: View {
     
     func fetchActivities() async {
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/activities?user_id=\(appState.user.id)&preferences=\(appState.preferences.joined(separator: "&preferences="))")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/activities?user_id=\(appState.user.id)&preferences=\(appState.preferences.map{ $0.title}.joined(separator: "&preferences="))")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "GET"

@@ -18,7 +18,11 @@ struct AcceptEventModalView: View {
     var body: some View {
         VStack {
             SheetPill()
-            if !loading {
+            if loading {
+                ProgressView("Loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else if let activity = activity {
                 Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
                 Image("spriessen")
                     .resizable()
@@ -26,7 +30,7 @@ struct AcceptEventModalView: View {
                     .foregroundColor(.white)
                     .clipShape(Circle())
                     .padding()
-                ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0])
+                ChatActivitySummaryView(activity: activity, user: appState.user)
                 Spacer()
                 HStack {
                     Button("Tomorrow, I promise", role: .cancel) {
@@ -53,9 +57,12 @@ struct AcceptEventModalView: View {
                     .disabled((activity == nil) || acceptLoading)
                 }
             } else {
-                ProgressView()
+                Text("No activity available")
+                    .font(.custom("Nunito-Bold", size: 24))
+                    .padding()
             }
-        }.task {
+        }
+        .task {
             await fetchActivity()
             loading = false
         }
@@ -71,7 +78,7 @@ struct AcceptEventModalView: View {
     
     func fetchActivity() async {
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id)&preferences=\(appState.preferences.joined(separator: "&preferences="))")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id)&preferences=\(appState.preferences.map{$0.title}.joined(separator: "&preferences="))")!
             
             print(url)
             var request = URLRequest(url: url)
@@ -88,6 +95,7 @@ struct AcceptEventModalView: View {
     }
     
     func matchmaking() async {
+        print("Matchmaking")
         do {
             let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match")!
             
