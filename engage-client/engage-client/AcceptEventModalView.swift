@@ -17,6 +17,7 @@ struct AcceptEventModalView: View {
     
     var body: some View {
         VStack {
+            SheetPill()
             if !loading {
                 Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
                 Image("spriessen")
@@ -68,19 +69,15 @@ struct AcceptEventModalView: View {
         dismiss()
     }
     
-    func fetchActivity() async { // todo - pass uid and filters
+    func fetchActivity() async {
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id)&preferences=\(appState.preferences.joined(separator: "&preferences="))")!
             
+            print(url)
             var request = URLRequest(url: url)
-            request.httpMethod = "POST"
+            request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let requestBody: [String: Any] = [
-                "user_id": appState.user.id,
-                "preferences": appState.preferences
-            ]
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
-            
+
             let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
