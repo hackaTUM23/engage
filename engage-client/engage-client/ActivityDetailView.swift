@@ -8,11 +8,38 @@
 import SwiftUI
 
 struct ActivityDetailView: View {
+    @Environment(\.dismiss) var dismiss
+    var activity: Activity
+    @State var acceptLoading = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            SheetPill()
+            ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0]).padding()
+            Spacer()
+            Button {
+                Task {
+                    await accept()
+                }
+            } label: {
+                if acceptLoading {
+                    ProgressView()
+                } else {
+                    Text("Let's Go!")
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .disabled(acceptLoading)
+        }
+    }
+    
+    func accept() async {
+        
     }
 }
 
 #Preview {
-    ActivityDetailView()
+    ActivityDetailView(activity: MockActivities.activities[0])
 }

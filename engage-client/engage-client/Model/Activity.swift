@@ -12,11 +12,11 @@ class Activity: Codable, Identifiable {
     var id: Int
     var activityDesc: String
     var time: Date
-    var locationDesc: String
+    var locationDesc: String?
     var locationLatLong: CLLocationCoordinate2D
     var registeredPeopleCount: Int
     
-    init(id: Int, activityDesc: String, time: Date, locationDesc: String, locationLatLong: CLLocationCoordinate2D, registeredPeopleCount: Int) {
+    init(id: Int, activityDesc: String, time: Date, locationDesc: String?, locationLatLong: CLLocationCoordinate2D, registeredPeopleCount: Int) {
         self.id = id
         self.activityDesc = activityDesc
         self.time = time
@@ -44,7 +44,7 @@ class Activity: Codable, Identifiable {
         id = try container.decode(Int.self, forKey: .id)
         activityDesc = try container.decode(String.self, forKey: .activityDesc)
         time = try container.decode(Date.self, forKey: .time)
-        locationDesc = try container.decode(String.self, forKey: .locationDesc)
+        locationDesc = try container.decode(String?.self, forKey: .locationDesc)
         
         // Decode locationLatLong as an array of two doubles
         let coordinates = try container.decode([Double].self, forKey: .locationLatLong)

@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var showAcceptEventModal = false
     @State var activity: Activity = MockActivities.activities[0]
     @StateObject var appState = AppState(
-        activities: [], user: MockUsers.users[0], preferences: []
+        activities: [], user: MockUsers.users[0]
     )
 
     var body: some View {
@@ -30,7 +30,7 @@ struct ContentView: View {
                 }
             }
   
-        }.environmentObject(appState)
+        }
         .padding()
         .onAppear {
             NotificationCenter.default.addObserver(forName: NSNotification.Name("ShowAcceptEventModal"), object: nil, queue: .main) { _ in
@@ -41,6 +41,7 @@ struct ContentView: View {
         .sheet(isPresented: $showAcceptEventModal) {
             AcceptEventModalView(activity: activity)
         }
+        .environmentObject(appState)
     }
 }
 

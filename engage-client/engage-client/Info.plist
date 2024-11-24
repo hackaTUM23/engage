@@ -6,13 +6,6 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-			<key>http://34.141.34.184:8080/</key>
-			<dict/>
-		</dict>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>

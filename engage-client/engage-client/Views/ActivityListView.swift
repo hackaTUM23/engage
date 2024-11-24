@@ -16,18 +16,19 @@ struct ActivityListView: View {
         HStack {
             VStack(alignment: .leading) {
                 
-//                Spacer().frame(height: 20)
+                //                Spacer().frame(height: 20)
                 HStack() {
-                        Image("marcel")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: 100)
-//                    .frame(minWidth: 140)
+                    Image("marcel")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 100)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    //                    .frame(minWidth: 140)
                     VStack(alignment: .leading) {
                         HStack {
                             Text(activity.activityDesc)
                                 .font(.custom("Nunito-Regular", size: 20))
-                                
+                            
                             Spacer()
                             Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
                         }
@@ -48,7 +49,7 @@ struct ActivityListView: View {
                         }
                     }
                 }
-            }.padding()
+            }
         }
     }
 }

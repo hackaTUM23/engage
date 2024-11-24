@@ -17,7 +17,12 @@ struct AcceptEventModalView: View {
     
     var body: some View {
         VStack {
-            if !loading {
+            SheetPill()
+            if loading {
+                ProgressView("Loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else if let activity = activity {
                 Text("Get going!").font(.custom("Nunito-Bold", size: 24)).padding()
                 Image("spriessen")
                     .resizable()
@@ -25,7 +30,7 @@ struct AcceptEventModalView: View {
                     .foregroundColor(.white)
                     .clipShape(Circle())
                     .padding()
-                ChatActivitySummaryView(activity: MockActivities.activities[0], user: MockUsers.users[0])
+                ChatActivitySummaryView(activity: activity, user: appState.user)
                 Spacer()
                 HStack {
                     Button("Tomorrow, I promise", role: .cancel) {
@@ -52,9 +57,12 @@ struct AcceptEventModalView: View {
                     .disabled((activity == nil) || acceptLoading)
                 }
             } else {
-                ProgressView()
+                Text("No activity available")
+                    .font(.custom("Nunito-Bold", size: 24))
+                    .padding()
             }
-        }.task {
+        }
+        .task {
             await fetchActivity()
             loading = false
         }
@@ -68,19 +76,15 @@ struct AcceptEventModalView: View {
         dismiss()
     }
     
-    func fetchActivity() async { // todo - pass uid and filters
+    func fetchActivity() async {
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id)&preferences=\(appState.preferences.map{$0.title}.joined(separator: "&preferences="))")!
             
+            print(url)
             var request = URLRequest(url: url)
-            request.httpMethod = "POST"
+            request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let requestBody: [String: Any] = [
-                "user_id": appState.user.id,
-                "preferences": appState.preferences
-            ]
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
-            
+
             let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
@@ -91,19 +95,27 @@ struct AcceptEventModalView: View {
     }
     
     func matchmaking() async {
+        print("Matchmaking")
         do {
-            let url = URL(string: "https://34.141.34.184:8080/matchmaker/accept_match")!
+            guard let activityId = appState.nextActivity?.id else {
+                throw URLError(.badURL)
+            } 
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=0&users=1&activity_id=\(activityId)")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let requestBody: [String: Any] = [
-                "users": [0, 1],
-                "activity_id": appState.nextActivity?.id ?? 0
-            ]
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
             
             let (data, _) = try await URLSession.shared.data(for: request)
+            
+            // Convert the raw data to a string for debugging
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Received data as string: \(dataString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+            
+            
             let matchmakerId = try JSONDecoder().decode(Int.self, from: data)
             appState.chatContext?.matchMakerId = matchmakerId
         } catch {
