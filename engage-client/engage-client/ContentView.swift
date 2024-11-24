@@ -10,7 +10,7 @@ import CoreLocation
 
 struct ContentView: View {
     @State private var showAcceptEventModal = false
-    @State var activity: Activity = MockActivities.activities[0]
+    @State var activity: Activity?
     @StateObject var appState = AppState(
         activities: [], user: MockUsers.users[0]
     )
@@ -29,17 +29,17 @@ struct ContentView: View {
                         Label("Home", systemImage: "house")
                 }
             }
-  
         }
         .padding()
         .onAppear {
             NotificationCenter.default.addObserver(forName: NSNotification.Name("ShowAcceptEventModal"), object: nil, queue: .main) { _ in
                 // TODO fetch best activity
+                
                 self.showAcceptEventModal = true
             }
         }
         .sheet(isPresented: $showAcceptEventModal) {
-            AcceptEventModalView(activity: activity)
+            AcceptEventModalView(activity: appState.nextActivity)
         }
         .environmentObject(appState)
        

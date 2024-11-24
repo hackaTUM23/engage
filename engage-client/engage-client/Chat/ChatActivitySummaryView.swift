@@ -15,7 +15,7 @@ struct ChatActivitySummaryView: View {
     var region: MKCoordinateRegion {
            MKCoordinateRegion(
                center: activity.locationLatLong,
-               span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+               span: MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008)
            )
        }
     
@@ -33,7 +33,7 @@ struct ChatActivitySummaryView: View {
                                     MapMarker(coordinate: item.coordinate)
                                 }
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                .frame(maxHeight: 180)
+                .frame(maxHeight: 140)
             }.padding()
         }
         .background(.white)

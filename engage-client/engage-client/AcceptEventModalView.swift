@@ -69,8 +69,10 @@ struct AcceptEventModalView: View {
         }
         .background(Color(UIColor.systemGray6))
         .task {
-            await fetchActivity()
-            await fetchUser()
+            activity = mainMockActivity
+//            await fetchActivity()
+            otherUser = MockUsers.users[1]
+            
             loading = false
         }
     }
@@ -79,13 +81,14 @@ struct AcceptEventModalView: View {
         acceptLoading = true
         appState.nextActivity = activity
         await matchmaking()
+        appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[1].chatUser, matchMakerId: 1)
         acceptLoading = false
         dismiss()
     }
     
     func fetchActivity() async {
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id)&preferences=\(appState.preferences.map{$0.title}.joined(separator: "&preferences="))")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id ?? 0)&preferences=\(appState.preferences.map{$0.title}.joined(separator: "&preferences="))")!
             
             print(url)
             var request = URLRequest(url: url)
@@ -95,29 +98,31 @@ struct AcceptEventModalView: View {
             let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
-            activity = try decoder.decode(Activity.self, from: data)
+            let sub = try decoder.decode(Subscription.self, from: data)
+            activity = sub.activity
+            otherUser = sub.user
         } catch {
             print(error)
         }
     }
     
-    func fetchUser() async {
-        do {
-            let userId = 1
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/users/\(userId)")!
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            otherUser = try decoder.decode(AppUser.self, from: data)
-        } catch {
-            print(error)
-        }
-    }
+//    func fetchUser() async {
+//        do {
+//            let userId = 1
+//            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/users/\(userId)")!
+//            
+//            var request = URLRequest(url: url)
+//            request.httpMethod = "GET"
+//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//            let (data, _) = try await URLSession.shared.data(for: request)
+//            let decoder = JSONDecoder()
+//            decoder.dateDecodingStrategy = .iso8601
+//            otherUser = try decoder.decode(AppUser.self, from: data)
+//        } catch {
+//            print(error)
+//        }
+//    }
     
     func matchmaking() async {
         print("Matchmaking")
@@ -125,7 +130,7 @@ struct AcceptEventModalView: View {
             guard let activityId = appState.nextActivity?.id else {
                 throw URLError(.badURL)
             } 
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=0&users=1&activity_id=\(activityId)")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=1&users=2&activity_id=\(activityId)")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"

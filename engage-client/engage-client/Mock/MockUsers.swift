@@ -13,8 +13,8 @@ import CoreLocation
 struct MockUsers {
     static let users: [AppUser] = [
         AppUser(
-            id: 0,
-            prename: "Björn",
+            id: 1,
+            prename: "Nikolai",
             surname: "Smith",
             homeLocationLatLong: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
             age: 28,
@@ -24,8 +24,8 @@ struct MockUsers {
             avatarURL: AssetExtractor.createLocalUrl(forImageNamed: "niko")
         ),
         AppUser(
-            id: 1,
-            prename: "John",
+            id: 2,
+            prename: "Vincent",
             surname: "Johnson",
             homeLocationLatLong: CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437),
             age: 32,
