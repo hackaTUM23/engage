@@ -15,26 +15,22 @@ struct ActivityListView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                HStack {
-                    Text(activity.activityDesc)
-                        .font(.custom("Nunito-Regular", size: 20))
-                        
-                    Spacer()
-                    Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
-                }
-                Spacer().frame(height: 20)
-                HStack(spacing: 40) {
-                    VStack {
+                
+//                Spacer().frame(height: 20)
+                HStack() {
                         Image("marcel")
                             .resizable()
                             .scaledToFit()
-                            .clipShape(Circle())
-                            .frame(maxWidth: 60, maxHeight: 60)
-                        Text("Hosted by ")
-                            .font(.custom("Nunito-Regular", size: 14))
-                        Text("\(user.prename) \(user.surname)")
-                    }.frame(minWidth: 140)
+                            .frame(maxWidth: 100)
+//                    .frame(minWidth: 140)
                     VStack(alignment: .leading) {
+                        HStack {
+                            Text(activity.activityDesc)
+                                .font(.custom("Nunito-Regular", size: 20))
+                                
+                            Spacer()
+                            Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
+                        }
                         HStack {
                             Image(systemName: "clock").frame(width: 40)
                             Text(" \(activity.time.formatted(.dateTime.hour().minute()))")

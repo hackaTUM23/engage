@@ -24,6 +24,15 @@ struct PreferenceSelectionView: View {
 
 class FilterModel: NSObject, ObservableObject {
     var data = [
+        // todo - update with:
+        // Fitness
+        // Woman Only
+        // Health (yoga, chi gong, etc)
+        // Ratschen
+        // Dancing
+        // Ball Sports
+        // Fighting Sports
+        
         FilterData(title: "Group Sports", icon: "sportscourt"),
         FilterData(title: "Concerts", icon: "music.note"),
         FilterData(title: "Movies", icon: "film"),

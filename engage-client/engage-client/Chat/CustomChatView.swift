@@ -4,11 +4,10 @@
 //
 //  Created by Sandesh Sharma on 23.11.24.
 //
+
 import ExyteChat
 import SwiftUI
-
 import UIKit
-
 
 
 struct CustomChatView: View {
@@ -22,31 +21,30 @@ struct CustomChatView: View {
         if var messages = appState.chatContext?.messages {
             messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: MockUsers.users[1].chatUser!, text: draft.text))
             CustomChatView.num_msgs += 1
+            // TODO: Send message here to server endpoint
         } else {
             print("messages is nil, cannot add message")
         }
-        
     }
     
     var body: some View {
         if let messages = appState.chatContext?.messages {
             ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
-                    HStack {
-                        TextField("Type message", text: textBinding)
-                            .padding(7)
-                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                        Button() { inputViewActionClosure(.send) } label: {
-                            Image(systemName: "paperplane.fill")
-                                .imageScale(.large)
-                                .foregroundStyle(.tint)
-                        }
+                HStack {
+                    TextField("Type message", text: textBinding)
+                        .padding(7)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                    Button() { inputViewActionClosure(.send) } label: {
+                        Image(systemName: "paperplane.fill")
+                            .imageScale(.large)
+                            .foregroundStyle(.tint)
                     }
-                    .padding()
+                }
+                .padding()
             }
         } else {
             Text("TODO: add spinner loading chat messages")
         }
-        
     }
 }
 

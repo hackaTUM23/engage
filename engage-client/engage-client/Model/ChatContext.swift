@@ -9,6 +9,7 @@ import ExyteChat
 class ChatContext {
     var messages: [Message] = []
     var otherUser: User?
+    var matchMakerId: Int?
     
     init(messages: [Message], otherUser: User? = nil) {
         self.messages = messages

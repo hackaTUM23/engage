@@ -13,6 +13,7 @@ struct AcceptEventModalView: View {
     
     @State var activity: Activity?
     @State private var loading = true
+    @State private var acceptLoading = false
     
     var body: some View {
         VStack {
@@ -33,13 +34,22 @@ struct AcceptEventModalView: View {
                     .buttonStyle(.bordered)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    Button("Let's Go!") {
-                        accept()
+                    .disabled(acceptLoading)
+                    Button {
+                        Task {
+                            await accept()
+                        }
+                    } label: {
+                        if acceptLoading {
+                            ProgressView()
+                        } else {
+                            Text("Let's Go!")
+                        }
                     }
                     .buttonStyle(.borderedProminent)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .disabled((activity == nil))
+                    .disabled((activity == nil) || acceptLoading)
                 }
             } else {
                 ProgressView()
@@ -50,14 +60,17 @@ struct AcceptEventModalView: View {
         }
     }
     
-    func accept() {
+    func accept() async {
+        acceptLoading = true
         appState.nextActivity = activity
+        await matchmaking()
+        acceptLoading = false
         dismiss()
     }
     
     func fetchActivity() async { // todo - pass uid and filters
         do {
-            let url = URL(string: "https://34.141.34.184:8080/subscriptions/find_matching_subscription")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -69,11 +82,35 @@ struct AcceptEventModalView: View {
             request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
             
             let (data, _) = try await URLSession.shared.data(for: request)
-            activity = try JSONDecoder().decode(Activity.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            activity = try decoder.decode(Activity.self, from: data)
         } catch {
             print(error)
         }
     }
+    
+    func matchmaking() async {
+        do {
+            let url = URL(string: "https://34.141.34.184:8080/matchmaker/accept_match")!
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let requestBody: [String: Any] = [
+                "users": [0, 1],
+                "activity_id": appState.nextActivity?.id ?? 0
+            ]
+            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let matchmakerId = try JSONDecoder().decode(Int.self, from: data)
+            appState.chatContext?.matchMakerId = matchmakerId
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 
 #Preview {
