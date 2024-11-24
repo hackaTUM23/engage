@@ -16,6 +16,7 @@ struct ComposedChatView : View {
         if let activity = appState.nextActivity {
             VStack {
                 ChatActivitySummaryView(activity: activity, user: appState.user).padding()
+                    .shadow(radius: 12)
                 CustomChatView()
             }
         .onAppear {

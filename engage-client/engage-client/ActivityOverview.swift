@@ -51,7 +51,8 @@ struct ActivityOverview: View {
                 }
                 Spacer()
             }
-        }.task {
+        }
+        .task {
             await fetchActivities()
             loading = false
         }

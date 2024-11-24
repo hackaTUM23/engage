@@ -15,6 +15,7 @@ struct engage_clientApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.font, Font.custom("Nunito-Regular", size: 14))
+                .ignoresSafeArea(edges: .bottom)
         }
     }
 }
