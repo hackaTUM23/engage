@@ -101,18 +101,25 @@ struct AcceptEventModalView: View {
     func matchmaking() async {
         print("Matchmaking")
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match")!
+            guard let activityId = appState.nextActivity?.id else {
+                throw URLError(.badURL)
+            } 
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=0&users=1&activity_id=\(activityId)")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let requestBody: [String: Any] = [
-                "users": [0, 1],
-                "activity_id": appState.nextActivity?.id ?? 0
-            ]
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
             
             let (data, _) = try await URLSession.shared.data(for: request)
+            
+            // Convert the raw data to a string for debugging
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Received data as string: \(dataString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+            
+            
             let matchmakerId = try JSONDecoder().decode(Int.self, from: data)
             appState.chatContext?.matchMakerId = matchmakerId
         } catch {
