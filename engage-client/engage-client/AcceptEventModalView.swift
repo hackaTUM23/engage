@@ -69,8 +69,9 @@ struct AcceptEventModalView: View {
         }
         .background(Color(UIColor.systemGray6))
         .task {
+            activity = mainMockActivity
 //            await fetchActivity()
-//            await fetchUser()
+            otherUser = MockUsers.users[1]
             
             loading = false
         }
@@ -80,6 +81,7 @@ struct AcceptEventModalView: View {
         acceptLoading = true
         appState.nextActivity = activity
         await matchmaking()
+        appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[1].chatUser, matchMakerId: 1)
         acceptLoading = false
         dismiss()
     }
@@ -128,7 +130,7 @@ struct AcceptEventModalView: View {
             guard let activityId = appState.nextActivity?.id else {
                 throw URLError(.badURL)
             } 
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=0&users=1&activity_id=\(activityId)")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=1&users=2&activity_id=\(activityId)")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"

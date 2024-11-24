@@ -33,7 +33,7 @@ struct CustomChatView: View {
     
     var body: some View {
         if let messages = appState.chatContext?.messages {
-            ChatView(messages: appState.messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
+            ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
                 HStack {
                     TextField("Type message", text: textBinding)
                         .padding(10)
@@ -46,6 +46,7 @@ struct CustomChatView: View {
                             .foregroundStyle(.tint)
                     }
                 }
+                .animation(nil, value: UUID())
                 .padding()
             }
         }
@@ -74,12 +75,18 @@ struct CustomChatView: View {
             if let dataString = String(data: data, encoding: .utf8) {
                 print("Received data as string: \(dataString)")
                 // Example usage:
-                    if let messages = Chat.parseMessages(from: dataString) {
-                        for message in messages {
+                    if let chats = Chat.parseMessages(from: dataString) {
+                        for message in chats {
                             print(message.message)
                             print(message.timestamp)
                         }
+                        let messages: [Message] = chats.map { chat in
+                            Message(id: UUID().uuidString, user: MockUsers.users.filter { user in user.id == chat.userId }.first!.chatUser!, text: chat.message)
+                        }
+                        print("UPDATE APP STATE")
+                        appState.messages = messages
                     }
+               
                 
             } else {
                 print("Failed to convert data to string")

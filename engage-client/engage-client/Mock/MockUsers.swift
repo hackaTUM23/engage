@@ -14,7 +14,7 @@ struct MockUsers {
     static let users: [AppUser] = [
         AppUser(
             id: 1,
-            prename: "Björn",
+            prename: "Nikolai",
             surname: "Smith",
             homeLocationLatLong: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
             age: 28,
@@ -25,7 +25,7 @@ struct MockUsers {
         ),
         AppUser(
             id: 2,
-            prename: "John",
+            prename: "Vincent",
             surname: "Johnson",
             homeLocationLatLong: CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437),
             age: 32,

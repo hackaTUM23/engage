@@ -21,14 +21,13 @@ struct ActivityListView: View {
                     Image(activity.activityDesc ?? "gray")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 100, maxHeight: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                     //                    .frame(minWidth: 140)
                     VStack(alignment: .leading) {
                         HStack {
                             Text(activity.activityDesc ?? "gray")
                                 .font(.custom("Nunito-Regular", size: 20))
-                            
                             Spacer()
 //                            Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
                         }

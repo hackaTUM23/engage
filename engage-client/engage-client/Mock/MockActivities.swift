@@ -15,7 +15,7 @@ struct MockActivities {
             activityDesc: "Volleyball",
             time: Date(),
             locationDesc: "Städt. Sporthalle an der Auenstraße",
-            locationLatLong: CLLocationCoordinate2D(latitude: 48.1244139, longitude: 48.84711),
+            locationLatLong: CLLocationCoordinate2D(latitude: 48.1170, longitude: 11.5777),
             registeredPeopleCount: 5
         ),
         Activity(
@@ -39,8 +39,10 @@ struct MockActivities {
             activityDesc: "Giesing Game Night",
             time: Date(),
             locationDesc: "Pfarrkirche Heilig-Kreuz",
-            locationLatLong: CLLocationCoordinate2D(latitude: 48.117016809715395, longitude: 11.577730659576368),
+            locationLatLong: CLLocationCoordinate2D(latitude: 48.1170, longitude: 11.5777),
             registeredPeopleCount: 6
         )
     ]
 }
+
+let mainMockActivity = MockActivities.activities.first!

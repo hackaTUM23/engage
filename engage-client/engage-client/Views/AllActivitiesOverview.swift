@@ -1,4 +1,11 @@
 //
+//  AllActivitiesOverview.swift
+//  engage-client
+//
+//  Created by Sandesh Sharma on 24.11.24.
+//
+
+//
 //  ActivityOverview.swift
 //  engage-client
 //
@@ -8,7 +15,7 @@
 import SwiftUI
 import CoreLocation
 
-struct ActivityOverview: View {
+struct AllActivitiesOverview: View {
     @EnvironmentObject var appState: AppState
     
     let welcomeText = "Welcome back! Here are some activities we recommend for you."
@@ -23,13 +30,6 @@ struct ActivityOverview: View {
                         .frame(maxWidth: 60, maxHeight: 60)
                     Text("Hi \(appState.user.prename)!")
                         .font(.custom("Nunito-Bold", size: 32)).padding(.leading, 8)
-                        .onTapGesture {
-                            if (appState.user.id == 0) {
-                                print("switch to chat for user \(appState.user.id)")
-                                appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[1].chatUser!, matchMakerId: 1)
-                                appState.nextActivity = mainMockActivity
-                            }
-                        }
                     Spacer()
                 }.padding(.leading, 20)
                 Group {
@@ -60,8 +60,7 @@ struct ActivityOverview: View {
             }
         }
         .task {
-//            await fetchActivities()
-            appState.activities = MockActivities.activities
+            await fetchActivities()
             loading = false
         }
     }
@@ -91,6 +90,7 @@ struct ActivityOverview: View {
             decoder.dateDecodingStrategy = .formatted(customDateFormatter) // Use the custom date formatter
             
             appState.activities = try decoder.decode([Activity].self, from: data)
+            
         } catch {
             print(error)
         }
@@ -98,5 +98,5 @@ struct ActivityOverview: View {
 }
 
 #Preview {
-    ActivityOverview().environmentObject(mockStateNoNextActivity)
+    AllActivitiesOverview().environmentObject(mockStateNoNextActivity)
 }
