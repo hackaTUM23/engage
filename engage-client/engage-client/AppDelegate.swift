@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Schedule Notification")
         let content = UNMutableNotificationContent()
         content.title = "Let's meet!"
-        content.body = "What do you think about a meeting at 2pm for a round of chess?"
+        content.body = "What do you think about a meeting at 8pm for a round of volleyball?"
         content.sound = UNNotificationSound.default
         content.categoryIdentifier = "MEETING_INVITATION"
         content.userInfo = ["MEETING_ID": "12345", "USER_ID": "67890"]

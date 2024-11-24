@@ -1,124 +1,52 @@
-//
-//  NewTryChat.swift
-//  engage-client
-//
-//  Created by Sandesh Sharma on 23.11.24.
-//
-
 import ExyteChat
 import SwiftUI
+
 import UIKit
 
+let botOld = User(id: "test id 3", name: "Bot", avatarURL: AssetExtractor.createFromSymbol(forImageNamed: "sparkles"), isCurrentUser: false)
+
+let mockMessagesOld: [Message] = [
+    Message(id: "test id2", user: bot, text: "Hey! Use this chat to coordinate, e.g. meeting a couple minutes before the event starts to go in together."),
+    Message(id: "test id1", user: MockUsers.users[1].chatUser!, text: "Hello, super excited to join you! Let's meet 10mins before at the main entrance?"),
+]
 
 struct CustomChatView: View {
-    @EnvironmentObject var appState: AppState
-    
-   // @Binding var messages: [Message]
+
+
+    @State var messages: [Message] = mockMessages
     static var num_msgs: Int = 0
     
-    func handleTextInput(draft: DraftMessage) {
-        print(draft.text)
-        if var messages = appState.chatContext?.messages {
-            messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: appState.user.chatUser!, text: draft.text))
+    func onAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            print("adding message")
+            messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: botOld, text: "Hello, I'm a bot. How can I help you today?"))
             CustomChatView.num_msgs += 1
-            Task {
-                let message = Message(id: "new id\(CustomChatView.num_msgs)", user: appState.user.chatUser!, text: draft.text)
-                appState.chatContext?.messages.append(message)
-                await send_message(msg: draft.text)
-            }
-        } else {
-            print("messages is nil, cannot add message")
         }
     }
     
+    func handleTextInput(draft: DraftMessage) {
+        print(draft.text)
+        messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: MockUsers.users[1].chatUser!, text: draft.text))
+        CustomChatView.num_msgs += 1
+    }
+    
     var body: some View {
-        if let messages = appState.chatContext?.messages {
-            ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
+        ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
                 HStack {
                     TextField("Type message", text: textBinding)
-                        .padding(10)
-                        .background(Color(UIColor.systemGray6))
-                        .clipShape(.capsule)
-                        .clipped()
+                        .padding(7)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                     Button() { inputViewActionClosure(.send) } label: {
                         Image(systemName: "paperplane.fill")
                             .imageScale(.large)
                             .foregroundStyle(.tint)
                     }
                 }
-                .animation(nil, value: UUID())
                 .padding()
-            }
-        }
-        
-    }
-
-    func send_message(msg: String) async {
-        print("send_message")
-        do {
-            guard let matchMakerId = appState.chatContext?.matchMakerId else {
-                return
-            }
-            
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/chats/send_message")!
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let chat = ChatMessage(matchmakerId: matchMakerId, userId: appState.user.id!, timestamp: Date().ISO8601Format(), message: msg)
-            print(chat)
-            request.httpBody = Chat.encodeMessage(chat)
-            print(request)
-            let (data, _) = try await URLSession.shared.data(for: request)
-            print(data)
-            // Convert the raw data to a string for debugging
-            if let dataString = String(data: data, encoding: .utf8) {
-                print("Received data as string: \(dataString)")
-                // Example usage:
-                    if let chats = Chat.parseMessages(from: dataString) {
-                        for message in chats {
-                            print(message.message)
-                            print(message.timestamp)
-                        }
-                        let messages: [Message] = chats.map { chat in
-                            Message(id: UUID().uuidString, user: MockUsers.users.filter { user in user.id == chat.userId }.first!.chatUser!, text: chat.message)
-                        }
-                        print("UPDATE APP STATE")
-                        appState.messages = messages
-                    }
-               
-                
-            } else {
-                print("Failed to convert data to string")
-            }
-            
-            let matchmakerId = try JSONDecoder().decode(Int.self, from: data)
-            appState.chatContext?.matchMakerId = matchmakerId
-        } catch {
-            print(error)
         }
     }
-          
 }
 
-//struct ChatHomie : Codable, Identifiable {
-//    var matchmaker_id: Int
-//    var user_id: Int
-//    var timestamp: String
-//    var message: String
-//    var id: Int { matchmaker_id }
-//}
-
-struct CustomChatView_Previews: PreviewProvider {
-    static let myEnvObject = AppState(
-        activities: [],
-        user: MockUsers.users.first!,
-        nextActivity: MockActivities.activities.first!,
-        chatContext: MockChatContext.mock()    )
-    
-    static var previews: some View {
-        CustomChatView()
-                .environmentObject(myEnvObject)
-        }
-    
+#Preview {
+    CustomChatView(messages: mockMessagesOld)
 }

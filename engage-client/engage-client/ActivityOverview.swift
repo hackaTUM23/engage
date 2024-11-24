@@ -52,6 +52,12 @@ struct ActivityOverview: View {
                             }
                             Divider()
                         }
+                        Button {
+//                           action todo
+                        }
+                        label : {
+                            Text("Show all")
+                        }
                     }
                 } else {
                     ProgressView()

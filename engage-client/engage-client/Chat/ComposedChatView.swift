@@ -21,26 +21,26 @@ struct ComposedChatView : View {
                 CustomChatView()
             }
             .onAppear {
-                startFetchingChats()
+//                startFetchingChats()
             }
             .onDisappear {
-                stopFetchingChats()
+//                stopFetchingChats()
             }
         }
     }
     
-    func startFetchingChats() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            Task {
-                await fetchChats()
-            }
-        }
-    }
-    
-    func stopFetchingChats() {
-        timer?.invalidate()
-        timer = nil
-    }
+//    func startFetchingChats() {
+//        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
+//            Task {
+//                await fetchChats()
+//            }
+//        }
+//    }
+//    
+//    func stopFetchingChats() {
+//        timer?.invalidate()
+//        timer = nil
+//    }
     
     func fetchChats() async {
         print("Fetching...")
@@ -49,7 +49,7 @@ struct ComposedChatView : View {
                 print("no matchmaker id when fetching chats")
                 return
             }
-            
+            print("fetching for \(matchMakerId)")
             let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/chats/\(matchMakerId)")!
             let (data, _) = try await URLSession.shared.data(from: url)
 
@@ -57,7 +57,7 @@ struct ComposedChatView : View {
                 print("Received data as string in fetchChats: \(dataString)")
                 if let chats = Chat.parseMessages(from: dataString) {
                     let messages: [Message] = chats.map { chat in
-                        Message(id: UUID().uuidString, user: MockUsers.users.filter { u in u.id == chat.userId }.first!.chatUser!, text: chat.message)
+                        Message(id: UUID().uuidString, user: MockUsers.users[chat.userId - 1].chatUser ?? MockUsers.users.first!.chatUser!, text: chat.message)
                     }
                     print("UPDATE APP STATE")
                     appState.messages = messages

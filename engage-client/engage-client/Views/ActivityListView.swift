@@ -20,7 +20,7 @@ struct ActivityListView: View {
                 HStack() {
                     Image(activity.activityDesc ?? "gray")
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                         .frame(maxWidth: 100, maxHeight: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                     //                    .frame(minWidth: 140)

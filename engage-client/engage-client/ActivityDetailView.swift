@@ -44,8 +44,8 @@ struct ActivityDetailView: View {
         print("dismissing")
         acceptLoading = true
         appState.nextActivity = mainMockActivity
-        appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[1].chatUser!, matchMakerId: 1)
         await matchmaking()
+        appState.chatContext = ChatContext(messages: [], otherUser: MockUsers.users[0].chatUser!, matchMakerId: 1)
         acceptLoading = false
         dismiss()
 //        appState.nextActivity = mainMockActivity
@@ -57,7 +57,7 @@ struct ActivityDetailView: View {
             guard let activityId = appState.nextActivity?.id else {
                 throw URLError(.badURL)
             }
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=0&users=1&activity_id=\(activityId)")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/matchmaker/accept_match?users=1&users=2&activity_id=\(activityId)")!
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
