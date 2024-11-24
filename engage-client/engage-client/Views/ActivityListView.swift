@@ -18,7 +18,7 @@ struct ActivityListView: View {
                 
                 //                Spacer().frame(height: 20)
                 HStack() {
-                    Image(activity.activityDesc)
+                    Image(activity.activityDesc ?? "gray")
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 100)
@@ -26,7 +26,7 @@ struct ActivityListView: View {
                     //                    .frame(minWidth: 140)
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(activity.activityDesc)
+                            Text(activity.activityDesc ?? "gray")
                                 .font(.custom("Nunito-Regular", size: 20))
                             
                             Spacer()

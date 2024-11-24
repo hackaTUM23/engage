@@ -15,7 +15,7 @@ struct ChatActivitySummaryView: View {
     var region: MKCoordinateRegion {
            MKCoordinateRegion(
                center: activity.locationLatLong,
-               span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+               span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
            )
        }
     

@@ -83,7 +83,6 @@ struct ActivityOverview: View {
             decoder.dateDecodingStrategy = .formatted(customDateFormatter) // Use the custom date formatter
             
             appState.activities = try decoder.decode([Activity].self, from: data)
-            
         } catch {
             print(error)
         }

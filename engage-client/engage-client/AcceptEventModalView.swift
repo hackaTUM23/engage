@@ -69,8 +69,9 @@ struct AcceptEventModalView: View {
         }
         .background(Color(UIColor.systemGray6))
         .task {
-            await fetchActivity()
-            await fetchUser()
+//            await fetchActivity()
+//            await fetchUser()
+            
             loading = false
         }
     }
@@ -85,7 +86,7 @@ struct AcceptEventModalView: View {
     
     func fetchActivity() async {
         do {
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id)&preferences=\(appState.preferences.map{$0.title}.joined(separator: "&preferences="))")!
+            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/subscriptions/find_matching_subscription?user_id=\(appState.user.id ?? 0)&preferences=\(appState.preferences.map{$0.title}.joined(separator: "&preferences="))")!
             
             print(url)
             var request = URLRequest(url: url)
@@ -95,29 +96,31 @@ struct AcceptEventModalView: View {
             let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
-            activity = try decoder.decode(Activity.self, from: data)
+            let sub = try decoder.decode(Subscription.self, from: data)
+            activity = sub.activity
+            otherUser = sub.user
         } catch {
             print(error)
         }
     }
     
-    func fetchUser() async {
-        do {
-            let userId = 1
-            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/users/\(userId)")!
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            otherUser = try decoder.decode(AppUser.self, from: data)
-        } catch {
-            print(error)
-        }
-    }
+//    func fetchUser() async {
+//        do {
+//            let userId = 1
+//            let url = URL(string: "https://engage-api-dev-855103304243.europe-west3.run.app/users/\(userId)")!
+//            
+//            var request = URLRequest(url: url)
+//            request.httpMethod = "GET"
+//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//            let (data, _) = try await URLSession.shared.data(for: request)
+//            let decoder = JSONDecoder()
+//            decoder.dateDecodingStrategy = .iso8601
+//            otherUser = try decoder.decode(AppUser.self, from: data)
+//        } catch {
+//            print(error)
+//        }
+//    }
     
     func matchmaking() async {
         print("Matchmaking")
