@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from models.users import User
 from persistence.mock_db import users_data
 from typing import List
+import time
 
 router = APIRouter()
 
@@ -12,14 +13,15 @@ def get_users():
 
 @router.get("/{user_id}", response_model=User)
 def get_user(user_id: int):
-    user = next((user for user in users_data if user.id == user_id), None)
+    user = next((user for user in users_data if user.user_id == user_id), None)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
 @router.post("/", response_model=User)
 def create_user(user: User):
-    if any(u.id == user.id for u in users_data):
+    user.user_id = int(time.time())
+    if any(u.user_id == user.user_id for u in users_data):
         raise HTTPException(status_code=400, detail="User ID already exists")
     users_data.append(user)
     return user
@@ -27,5 +29,5 @@ def create_user(user: User):
 @router.delete("/{user_id}")
 def delete_user(user_id: int):
     global users_data
-    users_data = [user for user in users_data if user.id != user_id]
+    users_data = [user for user in users_data if user.user_id != user_id]
     return {"message": "User deleted successfully"}

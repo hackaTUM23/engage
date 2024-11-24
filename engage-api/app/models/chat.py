@@ -4,7 +4,6 @@ from datetime import datetime
 
 # Chat model
 class Chat(BaseModel):
-    chat_id: int
     matchmaker_id: int
     user_id: int
     timestamp: datetime

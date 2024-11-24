@@ -8,6 +8,7 @@ class Activity(BaseModel):
     id: int
     activity_desc: str
     time: datetime
-    location_desc: str
+    location_desc: Optional[str]
     location_lat_long: Tuple[float, float]
     registered_people_count: int
+    max_people_count: int

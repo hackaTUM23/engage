@@ -4,8 +4,6 @@ from datetime import datetime
 
 # Matchmaker model
 class Matchmaker(BaseModel):
-    matchmaker_id: int
-    user_id: int
+    matchmaker_id: Optional[int]
+    users: List[int]
     activity_id: int
-    time: datetime
-    location: str
