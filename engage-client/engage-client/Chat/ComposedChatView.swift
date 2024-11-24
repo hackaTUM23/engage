@@ -41,7 +41,6 @@ struct ComposedChatView : View {
     }
 
     func fetchChats() async {
-        print("Fetching chats...")
         do {
             guard let matchMakerId = appState.chatContext?.matchMakerId else {
                 return

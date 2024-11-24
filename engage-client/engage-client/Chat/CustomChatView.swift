@@ -34,8 +34,10 @@ struct CustomChatView: View {
             ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
                 HStack {
                     TextField("Type message", text: textBinding)
-                        .padding(7)
-                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                        .padding(10)
+                        .background(Color(UIColor.systemGray6))
+                        .clipShape(.capsule)
+                        .clipped()
                     Button() { inputViewActionClosure(.send) } label: {
                         Image(systemName: "paperplane.fill")
                             .imageScale(.large)
@@ -94,9 +96,7 @@ struct CustomChatView_Previews: PreviewProvider {
         activities: [],
         user: MockUsers.users.first!,
         nextActivity: MockActivities.activities.first!,
-        chatContext: MockChatContext.mock(),
-        preferences: []
-    )
+        chatContext: MockChatContext.mock()    )
     
     static var previews: some View {
         CustomChatView()
