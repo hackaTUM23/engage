@@ -27,7 +27,7 @@ struct ActivityOverview: View {
             Group {
                 Text(welcomeText)
                     .font(.subheadline).padding()
-                PreferenceSelectionView(filterModel: .init())
+                PreferenceSelectionView()
                     .padding()
             }
             
@@ -64,7 +64,6 @@ struct ActivityOverview: View {
             } else {
                 print("Failed to convert data to string")
             }
-            
             // Custom date formatter for the "time" field (no timezone)
             let customDateFormatter = DateFormatter()
             customDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
