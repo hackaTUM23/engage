@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-#from app.persistence.db import database
 from routes import activity_routes, chat_routes, user_routes, matchmaker_routes, subscription_routes
 from fastapi.concurrency import asynccontextmanager
 from services.llm.vertexai import VertexAI_LLM
@@ -18,4 +17,3 @@ async def lifespan(app: FastAPI):
         yield
     finally:
         pass
-        #await database.disconnect()

@@ -43,18 +43,6 @@ for act in opendata.fetch_sport_offers(limit=200):
 
 activities_data.append(
     Activity(
-        id=idx,
-        activity_desc="Ratschbank",
-        time=activities_data[-10].time,
-        location_desc="Marienplatz",
-        location_lat_long=(0.0,0.0),
-        registered_people_count=0,
-        max_people_count=2
-    )
-)
-
-activities_data.append(
-    Activity(
         id=idx+1,
         activity_desc="Sports evening at the Olympic Park",
         time=datetime(2024, 11, 25, 18, 30),
@@ -69,9 +57,9 @@ activities_data.append(
 users_data = [
     User(
         user_id=1,
-        prename="Anna",
-        surname="Müller",
-        gender="Female",
+        prename="Vincent",
+        surname="Johnson",
+        gender="Male",
         home_location_lat_long=(48.1351, 11.5820),
         age=28,
         interests=["hiking", "tennis", "reading"],
@@ -80,12 +68,12 @@ users_data = [
     ),
     User(
         user_id=2,
-        prename="Lena",
-        surname="Schmidt",
-        gender="Female",
+        prename="Nicolai",
+        surname="Smith",
+        gender="Male",
         home_location_lat_long=(48.1486, 11.5690),
-        age=32,
-        interests=["swimming", "yoga"],
+        age=27,
+        interests=["swimming", "hiking"],
         experiences=["local yoga group"],
         previous_activities=["Open pool event"]
     ),
@@ -182,14 +170,14 @@ users_data = [
 # Generate a subscription
 subscription_data = [Subscription(
     subscription_id=1,
-    user=users_data[0],  # Anna Müller
+    user=users_data[0],
     activity=activities_data[-1]
 )]
 
 # Generate a matchmaker linking Anna Müller to a similar user
 matchmaker_data = [Matchmaker(
     matchmaker_id=1,
-    users=[1, 6],  # Anna Müller and Maximilian Huber
+    users=[1, 2],
     activity_id=activities_data[-1].id
 )]
 
@@ -197,34 +185,4 @@ from datetime import datetime, timedelta
 
 # Generate chat messages
 chat_data = [
-    Chat(
-        matchmaker_id=1,
-        user_id=1,  # Anna Müller
-        timestamp=datetime(2024, 11, 24, 10, 0),
-        message="Hi Maximilian, nice to meet you! Are you excited about the sports evening at the Olympic Park?"
-    ),
-    Chat(
-        matchmaker_id=1,
-        user_id=6,  # Maximilian Huber
-        timestamp=datetime(2024, 11, 24, 10, 15),
-        message="Hi Anna! Definitely, I’ve been looking forward to it. Have you been to this kind of event before?"
-    ),
-    Chat(
-        matchmaker_id=1,
-        user_id=1,
-        timestamp=datetime(2024, 11, 24, 10, 30),
-        message="Yes, I went to a similar event last year, and it was really fun. Lots of activities and a great vibe!"
-    ),
-    Chat(
-        matchmaker_id=1,
-        user_id=6,
-        timestamp=datetime(2024, 11, 24, 10, 45),
-        message="That sounds awesome! Should we meet up a bit earlier to grab a coffee or just head straight to the park?"
-    ),
-    Chat(
-        matchmaker_id=1,
-        user_id=1,
-        timestamp=datetime(2024, 11, 24, 11, 0),
-        message="Meeting up for coffee sounds perfect! How about at 6 PM near the main entrance to the park?"
-    )
 ]
