@@ -44,3 +44,5 @@ struct MockActivities {
         )
     ]
 }
+
+let mainMockActivity = MockActivities.activities.first!
