@@ -22,6 +22,8 @@ struct CustomChatView: View {
             messages.append(Message(id: "new id\(CustomChatView.num_msgs)", user: appState.user.chatUser!, text: draft.text))
             CustomChatView.num_msgs += 1
             Task {
+                let message = Message(id: "new id\(CustomChatView.num_msgs)", user: appState.user.chatUser!, text: draft.text)
+                appState.chatContext?.messages.append(message)
                 await send_message(msg: draft.text)
             }
         } else {
@@ -31,7 +33,7 @@ struct CustomChatView: View {
     
     var body: some View {
         if let messages = appState.chatContext?.messages {
-            ChatView(messages: messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
+            ChatView(messages: appState.messages, didSendMessage: handleTextInput)  { textBinding, attachments, inputViewState, inputViewStyle, inputViewActionClosure, dismissKeyboardClosure in
                 HStack {
                     TextField("Type message", text: textBinding)
                         .padding(10)
@@ -46,9 +48,8 @@ struct CustomChatView: View {
                 }
                 .padding()
             }
-        } else {
-            Text("TODO: add spinner loading chat messages")
         }
+        
     }
 
     func send_message(msg: String) async {
@@ -63,19 +64,23 @@ struct CustomChatView: View {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let requestBody: [String: Any] = [
-                "matchmaker_id": matchMakerId,
-                "user_id": appState.user.id,
-                "timestamp": Date().timeIntervalSince1970,
-                "message": msg
-            ]
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
-            
+            let chat = ChatMessage(matchmakerId: matchMakerId, userId: appState.user.id!, timestamp: Date().ISO8601Format(), message: msg)
+            print(chat)
+            request.httpBody = Chat.encodeMessage(chat)
+            print(request)
             let (data, _) = try await URLSession.shared.data(for: request)
-            
+            print(data)
             // Convert the raw data to a string for debugging
             if let dataString = String(data: data, encoding: .utf8) {
                 print("Received data as string: \(dataString)")
+                // Example usage:
+                    if let messages = Chat.parseMessages(from: dataString) {
+                        for message in messages {
+                            print(message.message)
+                            print(message.timestamp)
+                        }
+                    }
+                
             } else {
                 print("Failed to convert data to string")
             }
@@ -89,7 +94,13 @@ struct CustomChatView: View {
           
 }
 
-
+//struct ChatHomie : Codable, Identifiable {
+//    var matchmaker_id: Int
+//    var user_id: Int
+//    var timestamp: String
+//    var message: String
+//    var id: Int { matchmaker_id }
+//}
 
 struct CustomChatView_Previews: PreviewProvider {
     static let myEnvObject = AppState(

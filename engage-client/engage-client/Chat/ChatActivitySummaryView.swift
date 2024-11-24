@@ -33,10 +33,11 @@ struct ChatActivitySummaryView: View {
                                     MapMarker(coordinate: item.coordinate)
                                 }
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                .frame(maxHeight: 200)
+                .frame(maxHeight: 180)
             }.padding()
-        }.background(Color(UIColor.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+        }
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 

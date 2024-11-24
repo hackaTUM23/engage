@@ -18,19 +18,18 @@ struct ActivityListView: View {
                 
                 //                Spacer().frame(height: 20)
                 HStack() {
-                    Image("marcel")
+                    Image(activity.activityDesc)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 100, maxHeight: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                     //                    .frame(minWidth: 140)
                     VStack(alignment: .leading) {
                         HStack {
                             Text(activity.activityDesc)
                                 .font(.custom("Nunito-Regular", size: 20))
-                            
                             Spacer()
-                            Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
+//                            Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 24))
                         }
                         HStack {
                             Image(systemName: "clock").frame(width: 40)

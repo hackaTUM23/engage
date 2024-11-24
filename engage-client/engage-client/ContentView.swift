@@ -42,6 +42,7 @@ struct ContentView: View {
             AcceptEventModalView(activity: activity)
         }
         .environmentObject(appState)
+       
     }
 }
 
